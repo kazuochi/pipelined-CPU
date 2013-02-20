@@ -304,10 +304,12 @@ always @(*)
 		 end
 		 
 		zeroReg: begin //zeroReg
+				r0 = 0;
 			  _start = 0;
 			  _branch = 0;
 			  _write <= 1;
 			  imm <= 1;
+			  _move = 0;
 			  _wr <= instruction_in[1:0];
 		 end
 		 
@@ -335,6 +337,7 @@ always @(*)
 			  _branch <= 0;
 			  _write <= 1;
 			  m2r <= 1;
+			  imm = 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 4; //adr reg
 			  _wr <= instruction_in[1:0];
