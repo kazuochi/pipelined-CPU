@@ -13,7 +13,7 @@ reg [15:0] my_memory[0:255];
 
 assign DataOut = InternalDataOut;
 initial begin	
-	$readmemh("H:\Documents\Lab2\initMem.list", my_memory);
+	$readmemh("H:\\Documents\\Lab2\\initMem.list", my_memory);
 end
 
 always @ (ReadMem or DataAddress)
@@ -21,7 +21,8 @@ always @ (ReadMem or DataAddress)
 		begin
 			InternalDataOut = my_memory[DataAddress];
 		end 
-		else begin	
+	else 
+		begin	
 			InternalDataOut = DataAddress;
 		end
 	
@@ -32,5 +33,4 @@ always @ (posedge clk)
 	end
 
 	
-	//TO-DO: write MUX -> readMem ? DataOut = memory[DataAddress] : DataAddress(ALU result)
 endmodule
