@@ -40,11 +40,72 @@ parameter
 always @ (*)
 begin
     case(pc)
-        1:  begin _instOut={seti,        4'b0000}; end
-        
-        14: begin _instOut={halt,        4'b0000}; end //halt
-        default: begin _instOut = 9'b000000000; end //Put whatever you want 
+		  //----- Factorial Begin
+        1:  begin _instOut={seti,			4'b0000}; end
+        2:  begin _instOut={mathToAdr,		4'b0000}; end
+		  3:  begin _instOut={zeroReg,		4'b0000}; end
+		  4:  begin _instOut={ld,				4'b0010}; end
+		  5:  begin _instOut={mv,				4'b1001}; end
+		  6:  begin _instOut={seti,			4'b0001}; end
+		  7:  begin _instOut={sub,				4'b0110}; end
+		  8:  begin _instOut={rsAdr,			4'b0001}; end
+		  9:  begin _instOut={seti,			4'b0101}; end
+		  10: begin _instOut={mathToAdr,		4'b0000}; end
+		  11: begin _instOut={seti,			4'b0001}; end
+		  12: begin _instOut={mathToAdr,		4'b0001}; end
+		  13: begin _instOut={bez,				4'b0100}; end		
+		  //----- Multiply Begin
+		  //$0=total, $1=op1, $2=op2 
+		  14: begin _instOut={rsAdr,			4'b0001}; end
+		  15: begin _instOut={seti,			4'b1001}; end
+		  16: begin _instOut={mathToAdr,		4'b0000}; end
+		  17: begin _instOut={bez,				4'b1000}; end
+		  18: begin _instOut={mvToMath,		4'b0000}; end
+		  19: begin _instOut={add,				4'b0000}; end
+		  20: begin _instOut={seti,			4'b0001}; end
+		  21: begin _instOut={sub,				4'b1010}; end
+		  22: begin _instOut={rsAdr,			4'b0000}; end
+		  23: begin _instOut={seti,			4'b1011}; end
+		  24: begin _instOut={mathToAdr,		4'b0000}; end
+		  25: begin _instOut={jump,			4'b0000}; end
+		  //----- Multiply End
+		  26: begin _instOut={mvToMath,		4'b0000}; end
+		  27: begin _instOut={add,				4'b1111}; end
+		  28: begin _instOut={rsAdr,			4'b0000}; end
+		  29: begin _instOut={seti,			4'b1101}; end
+		  30: begin _instOut={mathToAdr,		4'b0000}; end
+		  31: begin _instOut={seti,			4'b0001}; end
+		  32: begin _instOut={mathToAdr,		4'b0001}; end
+		  33: begin _instOut={jump,			4'b0000}; end
+		  //----- Factorial End
+		  34: begin _instOut={rsAdr,			4'b0001}; end
+		  35: begin _instOut={seti,			4'b1111}; end
+		  36: begin _instOut={mathToAdr,		4'b0000}; end
+		  37: begin _instOut={zeroReg,		4'b0000}; end
+		  38: begin _instOut={st,				4'b0001}; end
+		  
+		  
+        default: begin _instOut={halt,			4'b0000}; end //halt
     endcase
 
 end
 endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
