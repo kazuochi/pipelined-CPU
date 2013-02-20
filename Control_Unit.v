@@ -304,6 +304,7 @@ always @(*)
 		 end
 		 
 		zeroReg: begin //zeroReg
+				r0 = 0;
 			  _start = 0;
 			  _branch = 0;
 			  _write <= 1;
