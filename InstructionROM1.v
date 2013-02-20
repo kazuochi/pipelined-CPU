@@ -40,7 +40,7 @@ parameter
 always @ (*)
 begin
     case(pc)
-        1:  begin _instOut={seti,        4'b0001}; end
+        1:  begin _instOut={seti,        4'b0000}; end
         2:  begin _instOut={mvMath,      4'b0000}; end
         3:  begin _instOut={add,         4'b0001}; end 
         4:  begin _instOut={rsAdr,       4'b0001}; end
