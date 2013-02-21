@@ -9,7 +9,7 @@ output taken
 );
 
 reg[0:4] i = 0;
-reg[0:4] count = 0;
+integer count = 0;
 reg [15:0]internalResult = 0;
 reg _taken;
 
@@ -37,9 +37,9 @@ always @(*) begin
 			internalResult = readData0 - readData1;
 		end
 		evenUpper: begin
-			for(i=0; i<8; i = i+1)
+			for(i=8; i<16; i = i+1)
 			begin
-				count <= count +(readData0[i]&1'b1);
+				count = count + (readData0[i]&1);
 			end
 			if(count%2==0)
 			begin
@@ -51,9 +51,9 @@ always @(*) begin
 			end
 		end
 		evenLower: begin
-			for(i=8; i<16; i = i+1)
+			for(i=0; i<8; i = i+1)
 			begin
-				count <= count+(readData0[i]&1'b1);
+				count = count +(readData0[i]&1);
 			end
 			if(count%2==0)
 			begin
