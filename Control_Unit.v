@@ -408,10 +408,7 @@ always @(*)
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0111; //ne
 		 end
-		
-	
-	
-	 
+
 	 
 	endcase
 end
