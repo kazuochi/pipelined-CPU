@@ -51,10 +51,10 @@ begin
 		  9:  begin _instOut={seti,        4'b0000}; end //$math = 0 
 		  10: begin _instOut={mvMath,      4'b0001}; end //$1 = 0 //Array Index
         11: begin _instOut={rsAdr,       4'b0001}; end //jump to positive direction
-        12: begin _instOut={seti,        4'b1000}; end //$math = 1000
-        13: begin _instOut={mathToAdr,   4'b0000}; end //$adr = 0000 0000 0000 1000
+        12: begin _instOut={seti,        4'b1010}; end //$math = 1010
+        13: begin _instOut={mathToAdr,   4'b0000}; end //$adr = 0000 0000 0000 1010
         14: begin _instOut={seti,        4'b0011}; end //$math = 0011
-        15: begin _instOut={mathToAdr,   4'b0100}; end //$adr = 0000 0000 0011 1010				56 instructions to Done:
+        15: begin _instOut={mathToAdr,   4'b0100}; end //$adr = 0000 0000 0011 1010				58 instructions to Done:
 		  16: begin _instOut={bez,         4'b0000}; end //LOOP:  if mem[1] is 0, jump Done:
 		  17: begin _instOut={mvCnt,       4'b0010}; end //$2 = $cnt = 32
 		  18: begin _instOut={setAdr,      4'b1000}; end //$adr = $2 = 32
@@ -69,53 +69,55 @@ begin
 		  27: begin _instOut={bez,         4'b1100}; end //if $3 == 0, jump Odd1:
 		  28: begin _instOut={seti,        4'b0001}; end //$math = 1
 		  29: begin _instOut={sub,         4'b0000}; end //$0 = $0-1; 
-		  30: begin _instOut={seti,        4'b0110}; end //$math = 0110       ODD1:
+		  30: begin _instOut={seti,        4'b1000}; end //$math = 1000       ODD1:
 		  31: begin _instOut={mathToAdr,   4'b0000}; end //$adr =1000
 		  32: begin _instOut={seti,        4'b0010}; end //$math = 0010
-		  33: begin _instOut={mathToAdr,   4'b0100}; end //$adr == 0010 0110
-		  34: begin _instOut={bez,         4'b0000}; end //if mem[1] is 0, jump Done:				 38 instructions to Done:
+		  33: begin _instOut={mathToAdr,   4'b0100}; end //$adr == 0010 1000
+		  34: begin _instOut={bez,         4'b0000}; end //if mem[1] is 0, jump Done:				 40 instructions to Done:
 		  35: begin _instOut={evl,         4'b1011}; end //check value of $2. if lower-half of adr 32 has even # of 1. Save 1 to $3 if even, 0 otherwise.
 		  36: begin _instOut={seti,        4'b0001}; end //$math = 1      
 		  37: begin _instOut={add,         4'b0101}; end //$1++ increment array index
-		  38: begin _instOut={seti,        4'b0011}; end //$math = 3       
-		  39: begin _instOut={mathToAdr,   4'b0000}; end //$adr = 0011  //set offset to ODD2:
-		  40: begin _instOut={bez,         4'b1100}; end //if result of ev == 0, jump Odd2:
-		  41: begin _instOut={seti,        4'b0001}; end //$math = 1      
-		  42: begin _instOut={sub,         4'b0000}; end //$0 = $0-1; //count even
-		  43: begin _instOut={seti,        4'b1001}; end //$math           ODD2:
-		  44: begin _instOut={mathToAdr,   4'b0000}; end //$adr =  1001
-		  45: begin _instOut={seti,        4'b0001}; end //$math = 0001
-		  46: begin _instOut={mathToAdr,   4'b0100}; end //$adr == 0001 1001						
-		  47: begin _instOut={bez,         4'b0000}; end //if mem[1] is 0, jump Done:				25 instructions to Done:
-		  48: begin _instOut={mvToCnt,     4'b1000}; end //move $cnt to $2
-		  49: begin _instOut={seti,        4'b0001}; end //$math = 1  
-		  50: begin _instOut={add,         4'b1010}; end //$2++ increment count
-		  51: begin _instOut={mvToCnt,     4'b1000}; end //$cnt = $2 
-		  52: begin _instOut={seti,        4'b1000}; end //$math = 3       //offset to Cont 8     #if $cnt == 79 set $1 = 127 and jump Done:
-		  53: begin _instOut={mathToAdr,   4'b0000}; end //$adr = 0001
-		  54: begin _instOut={seti,        4'b1111}; end //$math = 1111 
-		  55: begin _instOut={mvMath,      4'b0011}; end //$3 = 1111
-		  56: begin _instOut={seti,        4'b0100}; end //$math = 0100
-		  57: begin _instOut={setReg,      4'b0111}; end //$3 = 0100 1111 (79)
-		  58: begin _instOut={bne,         4'b0111}; end //$3 != 79 jump $adr(Cont:) #8 instructions Cont:
-		  59: begin _instOut={seti,        4'b1111}; end //$math = 1111
-		  60: begin _instOut={mvMath,      4'b0001}; end //$1 = 1111
-		  61: begin _instOut={seti,        4'b0111}; end //$math = 0111
-		  62: begin _instOut={setReg,      4'b0101}; end //$1 = 0111 1111 (127)
-		  63: begin _instOut={seti,        4'b0111}; end //$math = 1111  								7 instructions to Done:
-		  64: begin _instOut={mathToAdr,   4'b0000}; end //$adr = offset
-		  65: begin _instOut={jump,        4'b0000}; end //jump to Done:
-		  66: begin _instOut={rsAdr,       4'b0000}; end //jump to negative direction     Cont: 
-		  67: begin _instOut={seti,        4'b0111}; end //$math = 1111   offset to Loop:
-		  68: begin _instOut={mathToAdr,   4'b0000}; end //$adr 
-		  69: begin _instOut={seti,        4'b0011}; end //$math = 1111   
-		  70: begin _instOut={mathToAdr,   4'b0100}; end //set offset to Loop: //-55 instructions to Loop:
-		  71: begin _instOut={jump,        4'b0000}; end //jump to Loop:
-		  72: begin _instOut={rsAdr,       4'b0000}; end //jump to negative direction     Done: 
-		  73: begin _instOut={seti,        4'b0110}; end //$math = 0110  
-		  74: begin _instOut={mathToAdr,   4'b0100}; end //$addr = 0110 0000
-		  75: begin _instOut={zeroReg,     4'b0011}; end //$3 = 0
-		  76: begin _instOut={st,          4'b1101}; end //store $1 (array index) to mem[96]
+		  38: begin _instOut={rsAdr,       4'b0001}; end //jump to positive direction
+		  39: begin _instOut={seti,        4'b0011}; end //$math = 3       
+		  40: begin _instOut={mathToAdr,   4'b0000}; end //$adr = 0011  //set offset to ODD2:
+		  41: begin _instOut={bez,         4'b1100}; end //if result of ev == 0, jump Odd2:
+		  42: begin _instOut={seti,        4'b0001}; end //$math = 1      
+		  43: begin _instOut={sub,         4'b0000}; end //$0 = $0-1; //count even
+		  44: begin _instOut={seti,        4'b1010}; end //$math           ODD2:
+		  45: begin _instOut={mathToAdr,   4'b0000}; end //$adr =  1010
+		  46: begin _instOut={seti,        4'b0001}; end //$math = 0001
+		  47: begin _instOut={mathToAdr,   4'b0100}; end //$adr == 0001 1010						
+		  48: begin _instOut={bez,         4'b0000}; end //if mem[1] is 0, jump Done:				26 instructions to Done:
+		  49: begin _instOut={mvToCnt,     4'b1000}; end //move $cnt to $2
+		  50: begin _instOut={seti,        4'b0001}; end //$math = 1  
+		  51: begin _instOut={add,         4'b1010}; end //$2++ increment count
+		  52: begin _instOut={mvToCnt,     4'b1000}; end //$cnt = $2 
+		  53: begin _instOut={rsAdr,       4'b0001}; end //jump to positive direction
+		  54: begin _instOut={seti,        4'b1000}; end //$math = 3       //offset to Cont 8     #if $cnt == 79 set $1 = 127 and jump Done:
+		  55: begin _instOut={mathToAdr,   4'b0000}; end //$adr = 0001
+		  56: begin _instOut={seti,        4'b1111}; end //$math = 1111 
+		  57: begin _instOut={mvMath,      4'b0011}; end //$3 = 1111
+		  58: begin _instOut={seti,        4'b0100}; end //$math = 0100
+		  59: begin _instOut={setReg,      4'b0111}; end //$3 = 0100 1111 (79)
+		  60: begin _instOut={bne,         4'b0111}; end //$3 != 79 jump $adr(Cont:) #8 instructions Cont:
+		  61: begin _instOut={seti,        4'b1111}; end //$math = 1111
+		  62: begin _instOut={mvMath,      4'b0001}; end //$1 = 1111
+		  63: begin _instOut={seti,        4'b0111}; end //$math = 0111
+		  64: begin _instOut={setReg,      4'b0101}; end //$1 = 0111 1111 (127)
+		  65: begin _instOut={seti,        4'b0111}; end //$math = 1111  								7 instructions to Done:
+		  66: begin _instOut={mathToAdr,   4'b0000}; end //$adr = offset
+		  67: begin _instOut={jump,        4'b0000}; end //jump to Done:
+		  68: begin _instOut={rsAdr,       4'b0000}; end //jump to negative direction     Cont: 
+		  69: begin _instOut={seti,        4'b1001}; end //$math = 1001   offset to Loop:
+		  70: begin _instOut={mathToAdr,   4'b0000}; end //$adr 
+		  71: begin _instOut={seti,        4'b0011}; end //$math = 0011   
+		  72: begin _instOut={mathToAdr,   4'b0100}; end //set offset to Loop: //-57 instructions to Loop:
+		  73: begin _instOut={jump,        4'b0000}; end //jump to Loop:
+		  74: begin _instOut={rsAdr,       4'b0000}; end //jump to negative direction     Done: 
+		  75: begin _instOut={seti,        4'b0110}; end //$math = 0110  
+		  76: begin _instOut={mathToAdr,   4'b0100}; end //$addr = 0110 0000
+		  77: begin _instOut={zeroReg,     4'b0011}; end //$3 = 0
+		  78: begin _instOut={st,          4'b1101}; end //store $1 (array index) to mem[96]
         default: begin _instOut ={halt,  4'b0000}; end //Put whatever you want 
     endcase
 

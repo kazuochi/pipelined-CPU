@@ -37,6 +37,7 @@ always @(*) begin
 			internalResult = readData0 - readData1;
 		end
 		evenUpper: begin
+			count = 0;
 			for(i=8; i<16; i = i+1)
 			begin
 				count = count + (readData0[i]&1);
@@ -51,6 +52,7 @@ always @(*) begin
 			end
 		end
 		evenLower: begin
+			count=0;
 			for(i=0; i<8; i = i+1)
 			begin
 				count = count +(readData0[i]&1);

@@ -352,10 +352,11 @@ always @(*)
 		 evl: begin //evl
 			  _start = 0;
 			  _branch <= 0;
-			  _write <= 0;
+			  _write <= 1;
 			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 0;
+			  _move = 0;
 			  _wr <= instruction_in[1:0];
 			  aop = 4'b0011; //even_lower
 		 end
@@ -363,10 +364,11 @@ always @(*)
 		 evu: begin //evu
 			  _start = 0;
 			  _branch <= 0;
-			  _write <= 0;
+			  _write <= 1;
 			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 0;
+			  _move = 0;
 			  _wr <= instruction_in[1:0];
 			  aop = 4'b0010; //even_upper
 		 end
