@@ -244,15 +244,17 @@ always @(*)
 		
 		setCnt: begin  
 			r0 <= instruction_in[1:0]; 
-			r1 <= instruction_in[3:2];  //$math
+			r1 <= instruction_in[3:2];  
 			_wr <= 7; //$cnt
 			_write <= 1;
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
 			_start <= 0;
-			_move <= 0;
+			_move <= 1;
 			imm <= 0;
+			
+			
 			_set_quarter <= 1;
 		end
 		
