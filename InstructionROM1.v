@@ -40,21 +40,21 @@ parameter
 always @ (*)
 begin
     case(pc)
-        1:  begin _instOut={seti,        4'b0000}; end
-        2:  begin _instOut={mvMath,      4'b0000}; end
-        3:  begin _instOut={add,         4'b0001}; end 
-        4:  begin _instOut={rsAdr,       4'b0001}; end
-        5:  begin _instOut={seti,        4'b0111}; end
-        6:  begin _instOut={mathToAdr,   4'b0000}; end
-        7:  begin _instOut={bltz,        4'b0101}; end
-        8:  begin _instOut={seti,        4'b0011}; end
-        9:  begin _instOut={sub,         4'b0101}; end 
-        10: begin _instOut={rsAdr,       4'b0000}; end
-        11: begin _instOut={seti,        4'b1001}; end
-        12: begin _instOut={mathToAdr,   4'b0000}; end
-        13: begin _instOut={jump,        4'b0000}; end
-        14: begin _instOut={halt,        4'b0000}; end //halt
-        default: begin _instOut = 9'b000000000; end //Put whatever you want 
+        1:  begin _instOut={seti,        4'b0001}; end //$math = 1
+        2:  begin _instOut={mathToAdr,   4'b0000}; end //$adr=0000 0000 0000 0001
+        3:  begin _instOut={zeroReg,     4'b0001}; end //$1 = 0
+        4:  begin _instOut={ld,          4'b0100}; end //$0 = mem[1]
+		  5:  begin _instOut={rsCnt,       4'b0111}; end //$cnt = 0
+		  6:  begin _instOut={seti,        4'b0010}; end //$math = 0010 (2nd 1/4) for Inst#8
+        7:  begin _instOut={mvMath,      4'b0001}; end //$1 = $math = 2
+        8:  begin _instOut={setCnt,      4'b0101}; end //$cnt = 0000 0000 0010 0000 = 32'
+		  9:  begin _instOut={mvMath,      4'b0000}; end //$1 = 0 //Array Index
+        10: begin _instOut={rsAdr,       4'b0001}; end //jump to positive direction
+        11: begin _instOut={seti,        4'b1110}; end //$math = 1110
+        12: begin _instOut={mathToAdr,   4'b0000}; end //$adr = 0000 0000 0000 1110
+        13: begin _instOut={seti,        4'b0010}; end //$math = 0010
+        14: begin _instOut={mathToAdr,   4'b0100}; end //$adr = 0000 0000 0010 1110
+        default: begin _instOut ={halt,        4'b0000}; end //Put whatever you want 
     endcase
 
 end
