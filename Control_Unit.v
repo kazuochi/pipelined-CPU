@@ -311,6 +311,7 @@ always @(*)
 			  imm <= 1;
 			  _move = 0;
 			  _wr <= instruction_in[1:0];
+			  _set_quarter <= 0;
 		 end
 		 
 		jump: begin //jump
@@ -331,6 +332,7 @@ always @(*)
 			  r0 <= instruction_in[3:2];
 			  r1 <= 4; //adr reg
 			  _wr <= instruction_in[1:0];
+			  mw <= 0;
 			  aop = 4'b0000; //add
 		 end
 		 
