@@ -216,7 +216,7 @@ always @(*)
 		
 		mathToAdr: begin  
 			r0 <= 5; //$math
-			//r1 <= 5; 
+			r1 <= instruction_in[3:2]; 
 			_wr <= 4; //$adr
 			_write <= 1;
 			mw <= 0;
@@ -225,7 +225,7 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 0;
+			_set_quarter <= 1;
 		end
 		
 		setReg: begin  

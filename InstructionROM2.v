@@ -52,7 +52,7 @@ begin
 		  9:  begin _instOut={seti,			4'b0101}; end
 		  10: begin _instOut={mathToAdr,		4'b0000}; end
 		  11: begin _instOut={seti,			4'b0001}; end
-		  12: begin _instOut={mathToAdr,		4'b0001}; end
+		  12: begin _instOut={mathToAdr,		4'b0100}; end
 		  13: begin _instOut={bez,				4'b0100}; end		
 		  //----- Multiply Begin
 		  //$0=total, $1=op1, $2=op2 

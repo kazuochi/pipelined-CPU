@@ -15,7 +15,8 @@ module Regfile
  input set_quarter
  );
  
- reg[15:0] reg0, reg1, reg2, reg3, adr, math, cmp, cnt, _writeData, _writeReg, _regToMem;
+ reg[15:0] reg0=0, reg1=0, reg2=0, reg3=0, adr=0, math=0, cmp=0, cnt=0, _writeData=0, _writeReg=0, _regToMem=0;
+
  
  
  assign readData0 = readReg0 == 0 ? reg0 :
@@ -55,41 +56,137 @@ always @(posedge clk) begin
 	
 	if (write)
 	begin
-		if(set_quarter)
-		begin
-			case(readReg1)
-				0: begin _writeData = _writeData[3:0]; end
-				1: begin _writeData = _writeData[7:4]; end
-				2: begin _writeData = _writeData[11:8]; end
-				3: begin _writeData = _writeData[15:12]; end
-				endcase
-		end
 		
 		case (_writeReg)
+		
 			3'b000: begin
-				reg0 <= _writeData;
+				if(set_quarter)
+				begin
+					case(readReg1)
+						0: begin reg0[3:0]	= _writeData[3:0]; end
+						1: begin reg0[7:4] 	= _writeData[3:0]; end
+						2: begin reg0[11:8] 	= _writeData[3:0]; end
+						3: begin reg0[15:12] = _writeData[3:0]; end
+						endcase
+				end
+				else
+				begin
+					reg0 = _writeData;
+				end
 			end
+			
 			3'b001: begin
-				reg1 <= _writeData;
+				if(set_quarter)
+				begin
+					case(readReg1)
+						0: begin reg1[3:0]	= _writeData[3:0]; end
+						1: begin reg1[7:4] 	= _writeData[3:0]; end
+						2: begin reg1[11:8] 	= _writeData[3:0]; end
+						3: begin reg1[15:12] = _writeData[3:0]; end
+						endcase
+				end
+				else
+				begin
+					reg1 = _writeData;
+				end
 			end
+			
 			3'b010: begin
-				reg2 <= _writeData;
+				if(set_quarter)
+				begin
+					case(readReg1)
+						0: begin reg2[3:0]	= _writeData[3:0]; end
+						1: begin reg2[7:4] 	= _writeData[3:0]; end
+						2: begin reg2[11:8] 	= _writeData[3:0]; end
+						3: begin reg2[15:12] = _writeData[3:0]; end
+						endcase
+				end
+				else
+				begin
+					reg2 = _writeData;
+				end
 			end
+			
 			3'b011: begin
-				reg3 <= _writeData;
+				if(set_quarter)
+				begin
+					case(readReg1)
+						0: begin reg3[3:0]	= _writeData[3:0]; end
+						1: begin reg3[7:4] 	= _writeData[3:0]; end
+						2: begin reg3[11:8] 	= _writeData[3:0]; end
+						3: begin reg3[15:12] = _writeData[3:0]; end
+						endcase
+				end
+				else
+				begin
+					reg3 = _writeData;
+				end
 			end
+			
 			3'b100: begin
-				adr <= _writeData;
+				if(set_quarter)
+				begin
+					case(readReg1)
+						0: begin adr[3:0]	= _writeData[3:0]; end
+						1: begin adr[7:4] 	= _writeData[3:0]; end
+						2: begin adr[11:8] 	= _writeData[3:0]; end
+						3: begin adr[15:12] = _writeData[3:0]; end
+						endcase
+				end
+				else
+				begin
+					adr = _writeData;
+				end
 			end
+			
 			3'b101: begin
-				math <= _writeData;
+				if(set_quarter)
+				begin
+					case(readReg1)
+						0: begin math[3:0]	= _writeData[3:0]; end
+						1: begin math[7:4] 	= _writeData[3:0]; end
+						2: begin math[11:8] 	= _writeData[3:0]; end
+						3: begin math[15:12] = _writeData[3:0]; end
+						endcase
+				end
+				else
+				begin
+					math = _writeData;
+				end
 			end
+			
 			3'b110: begin
-				cmp <= _writeData;
+				if(set_quarter)
+				begin
+					case(readReg1)
+						0: begin cmp[3:0]	= _writeData[3:0]; end
+						1: begin cmp[7:4] 	= _writeData[3:0]; end
+						2: begin cmp[11:8] 	= _writeData[3:0]; end
+						3: begin cmp[15:12] = _writeData[3:0]; end
+						endcase
+				end
+				else
+				begin
+					cmp = _writeData;
+				end
 			end
+			
 			3'b111: begin
-				cnt <= _writeData;
+				if(set_quarter)
+				begin
+					case(readReg1)
+						0: begin cnt[3:0]	= _writeData[3:0]; end
+						1: begin cnt[7:4] 	= _writeData[3:0]; end
+						2: begin cnt[11:8] 	= _writeData[3:0]; end
+						3: begin cnt[15:12] = _writeData[3:0]; end
+						endcase
+				end
+				else
+				begin
+					cnt = _writeData;
+				end
 			end
+			
 		endcase
 	end
 end
