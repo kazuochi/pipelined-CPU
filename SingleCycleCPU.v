@@ -10,12 +10,14 @@ begin
 	forever #10 clk = !clk;
 end
 
-wire [15:0] pc_out, fetched_instruction;
+wire [15:0] pc_out;
+wire[8:0] fetched_instruction;
 wire [15:0] readData0, readData1;
-wire [15:0] result, taken, address, regToMem;
-wire [15:0] DataOut;
-wire[3:0] readReg0, readReg1, write_jumpReg,ALUOp;
+wire [15:0] result, taken, address;
+wire [15:0] DataOut, dataToMem;
+wire [3:0] readReg0, readReg1, write_jumpReg,ALUOp;
 wire start, branch, write, move, MemtoReg, MemWrite, jump_sign, immediate;
+wire [1:0] regToMem;
 
 Fetch_Unit fetchUnit(
 				.clk(clk),
@@ -44,6 +46,7 @@ Control_Unit control(
 		 ALUOp,
 		 MemtoReg,
 		 MemWrite,
+		 regToMem,
 		 jump_sign,
 		 immediate,
 		 set_quarter
@@ -59,6 +62,7 @@ Regfile regfile(
 				.readReg1(readReg1),
 				.readData1(readData1),
 				.regToMem(regToMem),
+				.dataToMem(dataToMem),
 				.move(move),
 				.immediate(immediate),
 				.address(address),
@@ -79,7 +83,7 @@ RAM ram(
 	.DataAddress(result),
 	.ReadMem(MemtoReg),
 	.WriteMem(MemWrite),
-	.DataIn(regToMem),
+	.DataIn(dataToMem),
 	.DataOut(DataOut)
 );
 

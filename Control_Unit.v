@@ -12,6 +12,7 @@ module Control_Unit(
 	output [3:0] ALUOp,
 	output MemtoReg,
 	output MemWrite,
+	output [1:0] regToMem,
 	output jump_sign,
 	output immediate,
 	output set_quarter
@@ -30,6 +31,7 @@ module Control_Unit(
 	reg _jump_sign;
 	reg imm;
 	reg _set_quarter;
+	reg [1:0] _regToMem;
 	
 	assign start = _start;
 	assign branch = _branch;
@@ -44,6 +46,7 @@ module Control_Unit(
 	assign jump_sign = _jump_sign;
 	assign immediate = imm;
 	assign set_quarter = _set_quarter;
+	assign regToMem = _regToMem;
 	
 parameter	
 		add			= 5'b00000,
@@ -94,6 +97,7 @@ always @(*)
 			_move <= 0;
 			imm <= 0;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 			
 		end
 		
@@ -110,6 +114,7 @@ always @(*)
 			_move <= 0;
 			imm <= 0;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 			
 		end
 		
@@ -125,6 +130,7 @@ always @(*)
 			_move <= 1;
 			imm <= 0;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 			
     end
 	 
@@ -140,6 +146,7 @@ always @(*)
 			_move <= 1;
 			imm <= 0;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 		end
 		
 	 mvAdr: begin  
@@ -154,6 +161,7 @@ always @(*)
 			_move <= 1;
 			imm <= 0;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 	 end
 	
 	 rsAdr: begin  
@@ -169,6 +177,7 @@ always @(*)
 			imm <= 1;
 			_set_quarter <= 0;
 			_jump_sign = instruction_in[0];
+			_regToMem = 2'bxx;
 	 end
 		
 	 seti: begin  
@@ -183,6 +192,7 @@ always @(*)
 			_move <= 0;
 			imm <= 1;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 	 end
 		
 		mvMath: begin  
@@ -197,6 +207,7 @@ always @(*)
 			_move <= 1;
 			imm <= 0;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 		end
 		
 		mvToMath: begin  
@@ -211,6 +222,7 @@ always @(*)
 			_move <= 1;
 			imm <= 0;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 		end
 		
 		
@@ -226,6 +238,7 @@ always @(*)
 			_move <= 1;
 			imm <= 0;
 			_set_quarter <= 1;
+			_regToMem = 2'bxx;
 		end
 		
 		setReg: begin  
@@ -240,6 +253,7 @@ always @(*)
 			_move <= 1;
 			imm <= 0;
 			_set_quarter <= 1;
+			_regToMem = 2'bxx;
 		end
 		
 		setCnt: begin  
@@ -254,6 +268,7 @@ always @(*)
 			_move <= 1;
 			imm <= 0;
 			_set_quarter <= 1;
+			_regToMem = 2'bxx;
 		end
 		
 		mvCnt: begin  
@@ -268,6 +283,7 @@ always @(*)
 			_move <= 1;
 			imm <= 0;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 		end
 		
 		mvToCnt: begin  
@@ -282,6 +298,7 @@ always @(*)
 			_move <= 1;
 			imm <= 0;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 		end
 		
 		rsCnt: begin  
@@ -296,6 +313,7 @@ always @(*)
 			_move <= 0;
 			imm <= 1;
 			_set_quarter <= 0;
+			_regToMem = 2'bxx;
 		end
 		
 		halt: begin //halt
@@ -312,27 +330,32 @@ always @(*)
 			  _move = 0;
 			  _wr <= instruction_in[1:0];
 			  _set_quarter <= 0;
+			  _regToMem = 2'bxx;
 		 end
 		 
 		jump: begin //jump
 			  _write = 0;
 			  _start = 0;
 			  _branch <= 1;
+			  imm <= 0;
 			  _set_quarter <= 0;
 			  r0 <= 0;
 			  r1 <= 0;
 			  aop = 4'b0111; //eq
+			  _regToMem = 2'bxx;
+
 		 end
 		 
 		 st: begin //str
 			  _start = 0;
 			  _branch <= 0;
 			  _write <= 0;
+			  imm <= 0;
 			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 4; //adr reg
-			  _wr <= instruction_in[1:0];
-			  mw <= 0;
+			  _regToMem = instruction_in[1:0];
+			  mw <= 1;
 			  aop = 4'b0000; //add
 		 end
 		 
@@ -346,6 +369,7 @@ always @(*)
 			  r0 <= instruction_in[3:2];
 			  r1 <= 4; //adr reg
 			  _wr <= instruction_in[1:0];
+			  _regToMem = 2'bxx;
 			  aop = 4'b0000; //add
 		 end
 		 
@@ -358,6 +382,7 @@ always @(*)
 			  r1 <= 0;
 			  _wr <= instruction_in[1:0];
 			  aop = 4'b0011; //even_lower
+			  _regToMem = 2'bxx;
 		 end
 		 
 		 evu: begin //evu
@@ -369,6 +394,7 @@ always @(*)
 			  r1 <= 0;
 			  _wr <= instruction_in[1:0];
 			  aop = 4'b0010; //even_upper
+			  _regToMem = 2'bxx;
 		 end
 		 
 		 bgte: begin //bgte
@@ -379,6 +405,7 @@ always @(*)
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0100; //gte
+			  _regToMem = 2'bxx;
 		 end
 		 
 		 bltz: begin //bltz
@@ -389,6 +416,7 @@ always @(*)
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0101; //ltz
+			  _regToMem = 2'bxx;
 		 end    
 		 
 		 bez: begin //bez
@@ -399,6 +427,7 @@ always @(*)
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0110; //ez
+			  _regToMem = 2'bxx;
 		 end
 		 
 		 bne: begin //bne
@@ -409,6 +438,7 @@ always @(*)
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b1000; //ne
+			  _regToMem = 2'bxx;
 		 end
 		 
 		 be: begin //be
@@ -419,6 +449,7 @@ always @(*)
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0111; //ne
+			  _regToMem = 2'bxx;
 		 end
 
 	 

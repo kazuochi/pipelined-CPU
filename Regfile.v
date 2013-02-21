@@ -8,14 +8,15 @@ module Regfile
  output [15:0] readData0,
  input [3:0] readReg1,
  output [15:0] readData1,
- output [15:0] regToMem,
+ input [1:0] regToMem,
+ output [15:0] dataToMem,
  input move,
  input immediate,
  output [15:0] address,
  input set_quarter
  );
  
- reg[15:0] reg0=0, reg1=0, reg2=0, reg3=0, adr=0, math=0, cmp=0, cnt=0, _writeData=0, _writeReg=0, _regToMem=0;
+ reg[15:0] reg0=0, reg1=0, reg2=0, reg3=0, adr=0, math=0, cmp=0, cnt=0, _writeData=0, _writeReg=0;
 
  
  
@@ -37,14 +38,17 @@ module Regfile
 						  readReg1 == 6 ? cmp :
 						  readReg1 == 7 ? cnt : 0;	
 						  
-assign regToMem = _regToMem;
+assign dataToMem =  regToMem == 0 ? reg0 :
+						  regToMem == 1 ? reg1 :
+						  regToMem == 2 ? reg2 :
+						  regToMem == 3 ? reg3 : 0;
+						  
 assign address = adr;
 
 		
 always @(posedge clk) begin
 	_writeData = writeData;
 	_writeReg = writeReg;
-	_regToMem = writeReg;
 	if(immediate)
 	begin
 		_writeData = readReg0;
