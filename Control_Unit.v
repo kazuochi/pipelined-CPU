@@ -225,7 +225,7 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 0;
+			_set_quarter <= 1;
 		end
 		
 		setReg: begin  
