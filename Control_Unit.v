@@ -384,6 +384,7 @@ always @(*)
 			  _wr <= instruction_in[1:0];
 			  aop = 4'b0011; //even_lower
 			  _regToMem = 2'bxx;
+			  m2r =0;
 		 end
 		 
 		 evu: begin //evu
@@ -397,6 +398,7 @@ always @(*)
 			  _wr <= instruction_in[1:0];
 			  aop = 4'b0010; //even_upper
 			  _regToMem = 2'bxx;
+			  m2r =0;
 		 end
 		 
 		 bgte: begin //bgte

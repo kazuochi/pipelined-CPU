@@ -88,7 +88,7 @@ begin
 		  46: begin _instOut={seti,        4'b0001}; end //$math = 0001
 		  47: begin _instOut={mathToAdr,   4'b0100}; end //$adr == 0001 1010						
 		  48: begin _instOut={bez,         4'b0000}; end //if mem[1] is 0, jump Done:				26 instructions to Done:
-		  49: begin _instOut={mvToCnt,     4'b1000}; end //move $cnt to $2
+		  49: begin _instOut={mvCnt,       4'b1010}; end //move $cnt to $2
 		  50: begin _instOut={seti,        4'b0001}; end //$math = 1  
 		  51: begin _instOut={add,         4'b1010}; end //$2++ increment count
 		  52: begin _instOut={mvToCnt,     4'b1000}; end //$cnt = $2 
@@ -118,7 +118,8 @@ begin
 		  76: begin _instOut={mathToAdr,   4'b0100}; end //$addr = 0110 0000
 		  77: begin _instOut={zeroReg,     4'b0011}; end //$3 = 0
 		  78: begin _instOut={st,          4'b1101}; end //store $1 (array index) to mem[96]
-        default: begin _instOut ={halt,  4'b0000}; end //Put whatever you want 
+		  79: begin _instOut ={halt,       4'b0000}; end //halt
+        default: begin _instOut ={halt,  4'b0000}; end //halt
     endcase
 
 end
