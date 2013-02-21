@@ -253,8 +253,6 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			
-			
 			_set_quarter <= 1;
 		end
 		
@@ -319,6 +317,7 @@ always @(*)
 			  _write = 0;
 			  _start = 0;
 			  _branch <= 1;
+			  _set_quarter <= 0;
 			  r0 <= 0;
 			  r1 <= 0;
 			  aop = 4'b0111; //eq
@@ -328,6 +327,7 @@ always @(*)
 			  _start = 0;
 			  _branch <= 0;
 			  _write <= 0;
+			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 4; //adr reg
 			  _wr <= instruction_in[1:0];
@@ -340,6 +340,7 @@ always @(*)
 			  _write <= 1;
 			  m2r <= 1;
 			  imm = 0;
+			  _set_quarter = 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 4; //adr reg
 			  _wr <= instruction_in[1:0];
@@ -350,6 +351,7 @@ always @(*)
 			  _start = 0;
 			  _branch <= 0;
 			  _write <= 0;
+			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 0;
 			  _wr <= instruction_in[1:0];
@@ -360,6 +362,7 @@ always @(*)
 			  _start = 0;
 			  _branch <= 0;
 			  _write <= 0;
+			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 0;
 			  _wr <= instruction_in[1:0];
@@ -370,6 +373,7 @@ always @(*)
 			  _start = 0;
 			  _branch <= 1;
 			  _write <= 0;
+			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0100; //gte
@@ -379,6 +383,7 @@ always @(*)
 			  _start = 0;
 			  _branch <= 1;
 			  _write <= 0;
+			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0101; //ltz
@@ -388,6 +393,7 @@ always @(*)
 			  _start = 0;
 			  _branch <= 1;
 			  _write <= 0;
+			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0110; //ez
@@ -397,6 +403,7 @@ always @(*)
 			  _start = 0;
 			  _branch <= 1;
 			  _write <= 0;
+			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b1000; //ne
@@ -406,6 +413,7 @@ always @(*)
 			  _start = 0;
 			  _branch <= 1;
 			  _write <= 0;
+			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0111; //ne
