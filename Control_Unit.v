@@ -15,7 +15,8 @@ module Control_Unit(
 	output [1:0] regToMem,
 	output jump_sign,
 	output immediate,
-	output set_quarter
+	output set_quarter,
+	output halted
 );
 
    reg _start;
@@ -32,6 +33,9 @@ module Control_Unit(
 	reg imm;
 	reg _set_quarter;
 	reg [1:0] _regToMem;
+	reg _halted;
+	
+	integer dynamic_counter = -1;
 	
 	assign start = _start;
 	assign branch = _branch;
@@ -47,6 +51,7 @@ module Control_Unit(
 	assign immediate = imm;
 	assign set_quarter = _set_quarter;
 	assign regToMem = _regToMem;
+	assign halted = _halted;
 	
 parameter	
 		add			= 5'b00000,
@@ -78,6 +83,8 @@ parameter
 		halt			= 5'b11010,
 		toBeDefined	= 5'b11011;
 		
+always@(instruction_in)
+dynamic_counter = dynamic_counter + 1;
 		
 		
 always @(*)
@@ -319,6 +326,7 @@ always @(*)
 		halt: begin //halt
 			  _branch = 0;
 			  _start <= 1;
+			  _halted <= 1;
 		 end
 		 
 		zeroReg: begin //zeroReg

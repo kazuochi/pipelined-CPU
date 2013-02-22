@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 module SingleCycleCPU(
-	input init
+	input init,
+	output done
 );
 reg clk;
 
@@ -49,7 +50,8 @@ Control_Unit control(
 		 regToMem,
 		 jump_sign,
 		 immediate,
-		 set_quarter
+		 set_quarter,
+		 done
 );
 
 Regfile regfile( 
