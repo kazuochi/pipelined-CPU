@@ -113,7 +113,14 @@ begin
 		  71: begin _instOut={seti,        4'b0011}; end //$math = 0011   
 		  72: begin _instOut={mathToAdr,   4'b0100}; end //set offset to Loop: //-57 instructions to Loop:
 		  73: begin _instOut={jump,        4'b0000}; end //jump to Loop:
-		    
+		  74: begin _instOut={rsAdr,       4'b0000}; end //jump to negative direction     Done: 
+		  75: begin _instOut={seti,        4'b0001}; end //$math = 1
+		  76: begin _instOut={sub,         4'b0101}; end //$1--
+		  77: begin _instOut={seti,        4'b0110}; end //$math = 0110  
+		  78: begin _instOut={mathToAdr,   4'b0100}; end //$addr = 0110 0000
+		  79: begin _instOut={zeroReg,     4'b0011}; end //$3 = 0
+		  80: begin _instOut={st,          4'b1101}; end //store $1 (array index) to mem[96]
+		  81: begin _instOut ={halt,       4'b0000}; end //halt
         default: begin _instOut ={halt,  4'b0000}; end //halt
     endcase
 
