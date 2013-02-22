@@ -86,8 +86,7 @@ begin
 		  39: begin _instOut={seti,			4'b1111}; end
 		  40: begin _instOut={mathToAdr,		4'b0000}; end
 		  41: begin _instOut={zeroReg,		4'b0000}; end
-		  42: begin _instOut={st,				4'b0001}; end
-		  
+		  42: begin _instOut={st,				4'b0001}; end		  
 		  
         default: begin _instOut={halt,			4'b0000}; end //halt
     endcase

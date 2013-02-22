@@ -23,7 +23,7 @@ end
 
 assign pc_out = next_pc;
 
-InstructionROM2 rom(
+InstructionROM3 rom(
 	.clk(clk),
 	.pc(pc_out),
 	.instruction(fetched_instruction)
