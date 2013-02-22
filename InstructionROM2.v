@@ -11,7 +11,7 @@ parameter
 		add			= 5'b00000,
 		sub    		= 5'b00001,
 		mv				= 5'b00010,
-		setAdr    	= 5'b00011,
+		mvToAdr    	= 5'b00011,
 		mvAdr			= 5'b00100,
 		rsAdr			= 5'b00101,
 		seti			= 5'b00110,

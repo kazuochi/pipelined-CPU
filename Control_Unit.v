@@ -52,7 +52,7 @@ parameter
 		add			= 5'b00000,
 		sub    		= 5'b00001,
 		mv				= 5'b00010,
-		setAdr    	= 5'b00011,
+		mvToAdr    	= 5'b00011,
 		mvAdr			= 5'b00100,
 		rsAdr			= 5'b00101,
 		seti			= 5'b00110,
@@ -134,7 +134,7 @@ always @(*)
 			
     end
 	 
-	 setAdr: begin 
+	 mvToAdr: begin 
 			r0 <= instruction_in[3:2];
     		//r1 <= 5; //DC
 			_wr <= 4;
@@ -242,8 +242,8 @@ always @(*)
 		end
 		
 		setReg: begin  
-			r0 <= 5; 
-			r1 <= instruction_in[3:2];  //$math
+			r0 <= 5; //$math
+			r1 <= instruction_in[3:2];  
 			_wr <= instruction_in[1:0]; 
 			_write <= 1;
 			mw <= 0;
@@ -337,6 +337,7 @@ always @(*)
 			  _write = 0;
 			  _start = 0;
 			  _branch <= 1;
+			  _move = 0;
 			  imm <= 0;
 			  _set_quarter <= 0;
 			  r0 <= 0;
@@ -350,6 +351,7 @@ always @(*)
 			  _start = 0;
 			  _branch <= 0;
 			  _write <= 0;
+			  _move = 0;
 			  imm <= 0;
 			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
@@ -363,6 +365,7 @@ always @(*)
 			  _start = 0;
 			  _branch <= 0;
 			  _write <= 1;
+			  _move = 0;
 			  m2r <= 1;
 			  imm = 0;
 			  _set_quarter = 0;
