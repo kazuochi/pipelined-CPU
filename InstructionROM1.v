@@ -11,7 +11,7 @@ parameter
 		add			= 5'b00000,
 		sub    		= 5'b00001,
 		mv				= 5'b00010,
-		setAdr    	= 5'b00011,
+		mvToAdr    	= 5'b00011,
 		mvAdr			= 5'b00100,
 		rsAdr			= 5'b00101,
 		seti			= 5'b00110,
@@ -57,7 +57,7 @@ begin
         15: begin _instOut={mathToAdr,   4'b0100}; end //$adr = 0000 0000 0011 1010				58 instructions to Done:
 		  16: begin _instOut={bez,         4'b0000}; end //LOOP:  if mem[1] is 0, jump Done:
 		  17: begin _instOut={mvCnt,       4'b0010}; end //$2 = $cnt = 32
-		  18: begin _instOut={setAdr,      4'b1000}; end //$adr = $2 = 32
+		  18: begin _instOut={mvToAdr,     4'b1000}; end //$adr = $2 = 32
 		  19: begin _instOut={zeroReg,     4'b0011}; end //$3 = 0
 		  20: begin _instOut={ld,          4'b1110}; end //$2 = mem[32]
 		  21: begin _instOut={evu,         4'b1011}; end //check value of $2. if upper-half of adr 32 has even # of 1. Save 1 to $3 if even, 0 otherwise.
