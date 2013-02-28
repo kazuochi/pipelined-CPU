@@ -15,7 +15,7 @@ module Control_Unit(
 	output [1:0] regToMem,
 	output jump_sign,
 	output immediate,
-	output set_quarter,
+	output [1:0] quarter,
 	output halted
 );
 
@@ -31,7 +31,7 @@ module Control_Unit(
 	reg mw;
 	reg _jump_sign;
 	reg imm;
-	reg _set_quarter;
+	reg [1:0] _quarter = 0;
 	reg [1:0] _regToMem;
 	reg _halted;
 	
@@ -49,7 +49,7 @@ module Control_Unit(
 	assign MemWrite = mw;
 	assign jump_sign = _jump_sign;
 	assign immediate = imm;
-	assign set_quarter = _set_quarter;
+	assign quarter = _quarter;
 	assign regToMem = _regToMem;
 	assign halted = _halted;
 	
@@ -89,6 +89,7 @@ dynamic_counter = dynamic_counter + 1;
 		
 always @(*)
 	begin
+	_quarter = 2'bxx;
 	case(instruction_in[8:4])
 	
 	add: begin  //ADD
@@ -103,7 +104,6 @@ always @(*)
 			aop = 4'b0000;
 			_move <= 0;
 			imm <= 0;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
 			
 		end
@@ -120,7 +120,6 @@ always @(*)
 			aop = 4'b0001;
 			_move <= 0;
 			imm <= 0;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
 			
 		end
@@ -136,8 +135,8 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
+			aop = 4'b0000;
 			
     end
 	 
@@ -152,7 +151,6 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
 		end
 		
@@ -167,7 +165,6 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
 	 end
 	
@@ -182,9 +179,9 @@ always @(*)
 			_start <= 0;
 			_move <= 0;
 			imm <= 1;
-			_set_quarter <= 0;
 			_jump_sign = instruction_in[0];
 			_regToMem = 2'bxx;
+			aop = 4'b0000;
 	 end
 		
 	 seti: begin  
@@ -198,8 +195,8 @@ always @(*)
 			_start <= 0;
 			_move <= 0;
 			imm <= 1;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
+			aop = 4'b0000;
 	 end
 		
 		mvMath: begin  
@@ -213,7 +210,6 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
 		end
 		
@@ -228,14 +224,13 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
 		end
 		
 		
 		mathToAdr: begin  
 			r0 <= 5; //$math
-			r1 <= instruction_in[3:2]; 
+			_quarter <= instruction_in[3:2]; 
 			_wr <= 4; //$adr
 			_write <= 1;
 			mw <= 0;
@@ -244,13 +239,13 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 1;
 			_regToMem = 2'bxx;
 		end
 		
 		setReg: begin  
 			r0 <= 5; //$math
-			r1 <= instruction_in[3:2];  
+			r1 <= 4'bxxxx;
+			_quarter <= instruction_in[3:2];  
 			_wr <= instruction_in[1:0]; 
 			_write <= 1;
 			mw <= 0;
@@ -259,13 +254,14 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 1;
 			_regToMem = 2'bxx;
+			aop = 4'b0000;
 		end
 		
 		setCnt: begin  
 			r0 <= instruction_in[1:0]; 
-			r1 <= instruction_in[3:2];  
+			r1 = 4'bxxxx;
+			_quarter <= instruction_in[3:2];  
 			_wr <= 7; //$cnt
 			_write <= 1;
 			mw <= 0;
@@ -274,8 +270,8 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 1;
 			_regToMem = 2'bxx;
+			aop = 4'b0000;
 		end
 		
 		mvCnt: begin  
@@ -289,7 +285,6 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
 		end
 		
@@ -304,7 +299,6 @@ always @(*)
 			_start <= 0;
 			_move <= 1;
 			imm <= 0;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
 		end
 		
@@ -319,7 +313,6 @@ always @(*)
 			_start <= 0;
 			_move <= 0;
 			imm <= 1;
-			_set_quarter <= 0;
 			_regToMem = 2'bxx;
 		end
 		
@@ -337,7 +330,6 @@ always @(*)
 			  imm <= 1;
 			  _move = 0;
 			  _wr <= instruction_in[1:0];
-			  _set_quarter <= 0;
 			  _regToMem = 2'bxx;
 		 end
 		 
@@ -347,7 +339,6 @@ always @(*)
 			  _branch <= 1;
 			  _move = 0;
 			  imm <= 0;
-			  _set_quarter <= 0;
 			  r0 <= 0;
 			  r1 <= 0;
 			  aop = 4'b0111; //eq
@@ -361,7 +352,6 @@ always @(*)
 			  _write <= 0;
 			  _move = 0;
 			  imm <= 0;
-			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 4; //adr reg
 			  _regToMem = instruction_in[1:0];
@@ -376,7 +366,6 @@ always @(*)
 			  _move = 0;
 			  m2r <= 1;
 			  imm = 0;
-			  _set_quarter = 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 4; //adr reg
 			  _wr <= instruction_in[1:0];
@@ -388,7 +377,6 @@ always @(*)
 			  _start = 0;
 			  _branch <= 0;
 			  _write <= 1;
-			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 0;
 			  _move = 0;
@@ -402,7 +390,6 @@ always @(*)
 			  _start = 0;
 			  _branch <= 0;
 			  _write <= 1;
-			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= 0;
 			  _move = 0;
@@ -416,7 +403,6 @@ always @(*)
 			  _start = 0;
 			  _branch <= 1;
 			  _write <= 0;
-			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0100; //gte
@@ -427,7 +413,6 @@ always @(*)
 			  _start = 0;
 			  _branch <= 1;
 			  _write <= 0;
-			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0101; //ltz
@@ -438,7 +423,6 @@ always @(*)
 			  _start = 0;
 			  _branch <= 1;
 			  _write <= 0;
-			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0110; //ez
@@ -449,7 +433,6 @@ always @(*)
 			  _start = 0;
 			  _branch <= 1;
 			  _write <= 0;
-			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b1000; //ne
@@ -460,7 +443,6 @@ always @(*)
 			  _start = 0;
 			  _branch <= 1;
 			  _write <= 0;
-			  _set_quarter <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0111; //ne

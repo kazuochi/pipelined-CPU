@@ -18,7 +18,7 @@ wire [15:0] result, taken, address;
 wire [15:0] DataOut, dataToMem;
 wire [3:0] readReg0, readReg1, write_jumpReg,ALUOp;
 wire start, branch, write, move, MemtoReg, MemWrite, jump_sign, immediate;
-wire [1:0] regToMem;
+wire [1:0] regToMem, quarter;
 
 Fetch_Unit fetchUnit(
 				.clk(clk),
@@ -50,7 +50,7 @@ Control_Unit control(
 		 regToMem,
 		 jump_sign,
 		 immediate,
-		 set_quarter,
+		 quarter,
 		 done
 );
 
@@ -68,7 +68,7 @@ Regfile regfile(
 				.move(move),
 				.immediate(immediate),
 				.address(address),
-				.set_quarter(set_quarter)
+				.quarter(quarter)
 			);
 
 ALU alu(
