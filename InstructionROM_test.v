@@ -11,7 +11,7 @@ parameter
 		add			= 5'b00000,
 		sub    		= 5'b00001,
 		mv				= 5'b00010,
-		setAdr    	= 5'b00011,
+		mvToAdr    	= 5'b00011,
 		mvAdr			= 5'b00100,
 		rsAdr			= 5'b00101,
 		seti			= 5'b00110,
@@ -40,9 +40,9 @@ parameter
 always @ (*)
 begin
     case(pc)
-        1:  begin _instOut={seti,        4'b0000}; end
-        2:  begin _instOut={mvMath,      4'b0000}; end
-        3:  begin _instOut={add,         4'b0001}; end 
+        1:  begin _instOut={seti,        4'b0001}; end
+        2:  begin _instOut={mathToAdr,   4'b0000}; end
+        3:  begin _instOut={mathToAdr,   4'b0100}; end 
         4:  begin _instOut={rsAdr,       4'b0001}; end
         5:  begin _instOut={seti,        4'b0111}; end
         6:  begin _instOut={mathToAdr,   4'b0000}; end
