@@ -7,25 +7,27 @@ module ID_EX_latch(
 	output [15:0] o_readData1,
 	input [3:0] ALUOp,			//control signal to ALU
 	output [3:0] o_ALUOp,
-	input [1:0] ReadMem,
+	input 		ReadMem,
 	input       WriteMem,     //control signal to RAM
-	output [1:0] o_ReadMem,  
+	output	 o_ReadMem,  
 	output       o_WriteMem,
 	input [15:0] DataIn,     //data path for RAM
 	output [15:0] o_DataIn,
 	input [1:0] quarter,      //data path to regfile
-	output [1:0] o_quarter
+	output [1:0] o_quarter,
+	input write,
+	output o_write
 );
 
 reg [15:0] _readData0, _readData1, _DataIn;
 reg [3:0]  _ALUOp;
 reg [1:0] _ReadMem, _quarter;
-reg _WriteMem;
+reg _WriteMem, _write;
 
 reg [15:0] __readData0, __readData1, __DataIn;
 reg [3:0]  __ALUOp;
-reg [1:0]  __ReadMem, __quarter;
-reg __WriteMem;
+reg [1:0] __quarter;
+reg __WriteMem, __ReadMem, __write;
 
 assign o_readData0 = __readData0;
 assign o_readData1 = __readData1;
@@ -34,6 +36,7 @@ assign o_ReadMem = __ReadMem;
 assign o_WriteMem = __WriteMem;
 assign o_DataIn = __DataIn;
 assign o_quarter = __quarter;
+assign o_write = __write;
 
 //input & write to registers
 always@(negedge clk)
@@ -45,6 +48,7 @@ begin
 	_WriteMem  <= WriteMem; 
 	_DataIn <= DataIn;
 	_quarter <= quarter;
+	_write <= write;
 end
 
 //output
@@ -57,6 +61,7 @@ begin
 	__WriteMem  <= _WriteMem; 
 	__DataIn <= _DataIn;
 	__quarter <= _quarter;
+	__write <= _write;
 end
 
 endmodule

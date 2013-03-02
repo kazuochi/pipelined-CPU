@@ -4,16 +4,13 @@ input clk,
 input [3:0]operation,
 input [15:0]readData0,
 input [15:0]readData1,
-output [15:0]result,
-output taken
+output [15:0]result
 );
 
 reg[0:4] i = 0;
 integer count = 0;
 reg [15:0]internalResult = 0;
-reg _taken;
 
-assign taken = _taken;
 assign result = internalResult;
 
 parameter	

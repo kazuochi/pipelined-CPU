@@ -10,3 +10,4 @@ begin
 	_clk = 0;
 	forever #10 _clk = !_clk;
 end
+endmodule
