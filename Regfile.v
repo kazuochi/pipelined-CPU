@@ -13,7 +13,8 @@ module Regfile
  input move,
  input immediate,
  output [15:0] address,
- input [1:0] quarter
+ input [1:0] quarter	
+
  );
  
  reg[15:0] reg0=0, reg1=0, reg2=0, reg3=0, adr=0, math=0, cmp=0, cnt=0, _writeData=0, _writeReg=0, _readData0;

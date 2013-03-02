@@ -16,7 +16,7 @@ wire[8:0] fetched_instruction;
 wire [15:0] readData0, readData1;
 wire [15:0] result, taken, address;
 wire [15:0] DataOut, dataToMem;
-wire [3:0] readReg0, readReg1, write_jumpReg,ALUOp;
+wire [3:0] readReg0, readReg1, writeReg, ALUOp;
 wire start, branch, write, move, MemtoReg, MemWrite, jump_sign, immediate;
 wire [1:0] regToMem, quarter;
 
@@ -41,7 +41,7 @@ Control_Unit control(
 		 branch,
 		 readReg0,
 		 readReg1,
-		 write_jumpReg,
+		 writeReg,
 		 write,
 		 move,
 		 ALUOp,
@@ -54,23 +54,59 @@ Control_Unit control(
 		 done
 );
 
+IF_ID_Latch(	
+   clk,
+	write,
+	writeReg,
+	readReg0,
+	readReg1,
+	regToMem,
+	move,
+	immediate,
+	quarter,
+	ALUOp,
+	MemtoReg,
+	MemWrite,
+	DataAddress,  //input for RAM
+	stall,
+	o_write,        //ID
+   o_writeReg,     //ID
+	o_readReg0,     //ID
+	o_readReg1,     //ID
+	o_regToMem,     //ID
+   o_move,         //ID
+   o_immediate,    //ID
+	o_quarter,      //ID
+	o_ALU_operation,
+	o_DataAddress,
+	o_ReadMem,
+	o_WriteMem
+);
+
 Regfile regfile( 
 				.clk(clk),
-				.write(write),
-				.writeReg(write_jumpReg),
+				.write(o_write),
+				.writeReg(o_writeReg),
 				.writeData(DataOut),
-				.readReg0(readReg0),
-				.readData0(readData0),
-				.readReg1(readReg1),
-				.readData1(readData1),
-				.regToMem(regToMem),
-				.dataToMem(dataToMem),
-				.move(move),
-				.immediate(immediate),
-				.address(address),
-				.quarter(quarter)
+				.readReg0(o_readReg0), 
+				.readData0(readData0), //out
+				.readReg1(o_readReg1),
+				.readData1(readData1), //out
+				.regToMem(o_regToMem),
+				.dataToMem(dataToMem),  //out
+				.move(o_move),
+				.immediate(o_immediate),
+				.address(address),    //out
+				.quarter(o_quarter)
 			);
 
+ID_EX_latch(
+
+
+
+
+);
+			
 ALU alu(
 			.clk(clk),
 			.operation(ALUOp),
@@ -78,6 +114,13 @@ ALU alu(
 			.readData1(readData1),
 			.result(result),
 			.taken(taken)
+);
+
+
+EX_MEM_latch(
+
+
+
 );
 
 RAM ram(
