@@ -14,7 +14,7 @@ module Regfile
  input immediate,
  output [15:0] address,
  input [1:0] quarter,
- input [3:0]ALU_operation;
+ input [3:0]ALU_operation,
  output taken
  );
  
