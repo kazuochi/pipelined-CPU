@@ -13,11 +13,13 @@ module Regfile
  input move,
  input immediate,
  output [15:0] address,
- input [1:0] quarter	
-
+ input [1:0] quarter,
+ input [3:0]ALU_operation,
+ output taken
  );
  
  reg[15:0] reg0=0, reg1=0, reg2=0, reg3=0, adr=0, math=0, cmp=0, cnt=0, _writeData=0, _writeReg=0, _readData0;
+ reg _taken;
 
  
  
@@ -48,10 +50,75 @@ assign dataToMem =  regToMem == 0 ? reg0 :
 						  regToMem == 3 ? reg3 : 0;
 						  
 assign address   = adr;
+assign taken 	  = _taken;
+
+parameter
+		gte			= 4,
+		ltz			= 5,
+		ez				= 6,
+		eq				= 7,
+		ne				= 8;
 		
 always @(posedge clk) begin
 	_writeData = writeData;
 	_writeReg = writeReg;
+	
+	case(ALU_operation)
+		
+		gte: begin
+			if(readData0 >= readData1)
+			begin
+				_taken <= 1;
+			end
+			else
+			begin
+				_taken <= 0;
+			end
+		end
+		ltz: begin
+			if(readData0[15] == 1)  //assuming readData0 cannot be large positive values
+			begin
+				_taken <= 1;
+			end
+			else
+			begin
+				_taken <= 0;
+			end
+		end
+		ez: begin
+			if(readData0 == 0)
+			begin
+				_taken <= 1;
+			end
+			else
+			begin
+				_taken <= 0;
+			end
+		end
+		eq: begin
+			if(readData0 == readData1)
+			begin
+				_taken <= 1;
+			end
+			else
+			begin
+				_taken <= 0;
+			end
+		end
+		ne: begin
+			if(readData0 != readData1)
+			begin
+				_taken <= 1;
+			end
+			else
+			begin
+				_taken <= 0;
+			end
+		end
+		default: begin end
+		
+	endcase
+	
 	
 	if (write)
 	begin
