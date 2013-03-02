@@ -66,56 +66,7 @@ always @(*) begin
 				internalResult <= 0;
 			end
 		end
-		gte: begin
-			if(readData0 >= readData1)
-			begin
-				_taken <= 1;
-			end
-			else
-			begin
-				_taken <= 0;
-			end
-		end
-		ltz: begin
-			if(readData0[15] == 1)  //assuming readData0 cannot be large positive values
-			begin
-				_taken <= 1;
-			end
-			else
-			begin
-				_taken <= 0;
-			end
-		end
-		ez: begin
-			if(readData0 == 0)
-			begin
-				_taken <= 1;
-			end
-			else
-			begin
-				_taken <= 0;
-			end
-		end
-		eq: begin
-			if(readData0 == readData1)
-			begin
-				_taken <= 1;
-			end
-			else
-			begin
-				_taken <= 0;
-			end
-		end
-		ne: begin
-			if(readData0 != readData1)
-			begin
-				_taken <= 1;
-			end
-			else
-			begin
-				_taken <= 0;
-			end
-		end
+		default: begin end
 	endcase
 end
 endmodule

@@ -4,6 +4,7 @@ module Control_Unit(
 	input [8:0] instruction_in,
 	output start,
 	output branch,
+	output taken,
 	output[3:0]readReg0,
 	output[3:0]readReg1,
 	output[3:0]write_reg,
@@ -89,7 +90,7 @@ dynamic_counter = dynamic_counter + 1;
 		
 always @(*)
 	begin
-	_quarter = 2'bxx;
+	_quarter = 2'bxx;	
 	case(instruction_in[8:4])
 	
 	add: begin  //ADD

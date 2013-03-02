@@ -3,13 +3,13 @@ module MEM_WB_Latch
 (
 	input clk,
 	input write,
-	input quarter,
+	input [1:0]quarter,
 	input stall,
 	output o_write,
-	output o_quarter,
+	output [1:0]o_quarter,
  );
  
- reg _write, _quarter, __write, __quarter;
+ reg _write, [1:0]_quarter, __write, [1:0]__quarter;
  
  assign o_write 			= 	__write;
  assign o_quarter 		= 	__quarter;

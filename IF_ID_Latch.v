@@ -11,7 +11,6 @@ module IF_ID_Latch
 	input immediate,
 	input [1:0] quarter,
 	input [3:0]ALU_operation,
-	input [15:0] DataAddress,
 	input ReadMem,
 	input WriteMem,
 	input stall,
@@ -24,13 +23,11 @@ module IF_ID_Latch
 	output o_immediate,
 	output [1:0] o_quarter,
 	output [3:0] o_ALU_operation,
-	output [15:0] o_DataAddress,
 	output o_ReadMem,
 	output o_WriteMem
  );
  
  reg _write, _move, _immediate, _quarter, _ReadMem, _WriteMem, __write, __move, __immediate, __quarter, __ReadMem, __WriteMem;
- reg [15:0] _DataAddress, __DataAddress;
  reg [3:0] _writeReg, _readReg0, _readReg1, _ALU_operation, __writeReg, __readReg0, __readReg1, __ALU_operation;
  reg [1:0] _regToMem, __regToMem;
  
@@ -43,7 +40,6 @@ module IF_ID_Latch
  assign o_immediate 		= 	__immediate;
  assign o_quarter 		= 	__quarter;
  assign o_ALU_operation	=	__ALU_operation;
- assign o_DataAddress	=	__DataAddress;
  assign o_ReadMem			=	__ReadMem;
  assign o_WriteMem		=	__WriteMem;
  
@@ -56,7 +52,6 @@ module IF_ID_Latch
 		_quarter			= quarter;
 		_ReadMem			= ReadMem;
 		_WriteMem		= WriteMem;
-		_DataAddress	= DataAddress;
 		_writeReg		= writeReg;
 		_readReg0		= readReg0;
 		_readReg1		= readReg1;
