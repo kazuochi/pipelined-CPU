@@ -35,7 +35,8 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 520 152 664 408)
+
+	(rect 520 144 664 400)
 	(text "Pipelined_CPU" (rect 5 0 78 12)(font "Arial" ))
 	(text "inst" (rect 8 240 25 252)(font "Arial" ))
 	(port
@@ -126,7 +127,7 @@ applicable agreement for further details.
 		(pt 144 32)
 		(output)
 		(text "halted" (rect 0 0 29 12)(font "Arial" ))
-		(text "halted" (rect 99 27 128 39)(font "Arial" ))
+		(text "halted" (rect 99 27 123 39)(font "Arial" ))
 		(line (pt 144 32)(pt 128 32))
 	)
 	(drawing
@@ -134,90 +135,91 @@ applicable agreement for further details.
 	)
 )
 (connector
+	(pt 480 176)
+	(pt 520 176)
+)
+(connector
+	(pt 520 192)
+	(pt 480 192)
+)
+(connector
+	(pt 520 240)
+	(pt 480 240)
+)
+(connector
+	(pt 520 320)
+	(pt 480 320)
+)
+(connector
+	(pt 480 336)
+	(pt 520 336)
+)
+(connector
+	(pt 480 320)
+	(pt 480 336)
+)
+(connector
+	(pt 520 352)
+	(pt 480 352)
+)
+(connector
+	(pt 480 336)
+	(pt 480 352)
+)
+(connector
 	(pt 480 104)
 	(pt 456 104)
 )
 (connector
-	(pt 480 184)
-	(pt 520 184)
-)
-(connector
-	(pt 480 200)
-	(pt 520 200)
-)
-(connector
-	(pt 480 232)
-	(pt 520 232)
-)
-(connector
-	(pt 480 248)
-	(pt 520 248)
-)
-(connector
-	(pt 480 280)
-	(pt 520 280)
-)
-(connector
-	(pt 480 312)
-	(pt 520 312)
-)
-(connector
-	(pt 480 328)
-	(pt 520 328)
-)
-(connector
-	(pt 480 344)
-	(pt 520 344)
-)
-(connector
-	(pt 480 360)
-	(pt 520 360)
-)
-(connector
-	(pt 664 184)
-	(pt 736 184)
-)
-(connector
 	(pt 480 104)
-	(pt 480 184)
+	(pt 480 176)
 )
 (connector
-	(pt 480 184)
-	(pt 480 200)
+	(pt 480 176)
+	(pt 480 192)
 )
 (connector
-	(pt 480 200)
-	(pt 480 232)
+	(pt 664 176)
+	(pt 736 176)
 )
 (connector
-	(pt 480 232)
-	(pt 480 248)
+	(pt 520 272)
+	(pt 480 272)
 )
 (connector
-	(pt 480 248)
-	(pt 480 280)
+	(pt 520 304)
+	(pt 480 304)
 )
 (connector
-	(pt 480 280)
-	(pt 480 312)
+	(pt 480 304)
+	(pt 480 320)
 )
 (connector
-	(pt 480 312)
-	(pt 480 328)
+	(pt 480 240)
+	(pt 480 272)
 )
 (connector
-	(pt 480 328)
-	(pt 480 344)
+	(pt 520 224)
+	(pt 480 224)
 )
 (connector
-	(pt 480 344)
-	(pt 480 360)
+	(pt 480 192)
+	(pt 480 224)
 )
-(junction (pt 480 184))
-(junction (pt 480 200))
-(junction (pt 480 232))
-(junction (pt 480 248))
-(junction (pt 480 280))
-(junction (pt 480 312))
-(junction (pt 480 328))
-(junction (pt 480 344))
+(connector
+	(pt 480 224)
+	(pt 480 240)
+)
+(connector
+	(pt 480 272)
+	(pt 480 304)
+)
+(junction (pt 480 192))
+(junction (pt 480 240))
+(junction (pt 480 320))
+(junction (pt 480 336))
+(junction (pt 480 176))
+(junction (pt 480 272))
+(junction (pt 480 304))
+(junction (pt 480 224))
+

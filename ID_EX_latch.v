@@ -16,16 +16,18 @@ module ID_EX_latch(
 	input [1:0] quarter,      //data path to regfile
 	output [1:0] o_quarter,
 	input write,
-	output o_write
+	output o_write,
+	input [3:0] writeReg,
+	output [3:0] o_writeReg
 );
 
 reg [15:0] _readData0, _readData1, _DataIn;
-reg [3:0]  _ALUOp;
-reg [1:0]  _quarter;
-reg _WriteMem, _write,_ReadMem;
+reg [3:0]  _ALUOp, _writeReg;
+reg [1:0] _ReadMem, _quarter;
+reg _WriteMem, _write;
 
 reg [15:0] __readData0, __readData1, __DataIn;
-reg [3:0]  __ALUOp;
+reg [3:0]  __ALUOp, __writeReg;
 reg [1:0] __quarter;
 reg __WriteMem, __ReadMem, __write;
 
@@ -37,6 +39,7 @@ assign o_WriteMem = __WriteMem;
 assign o_DataIn = __DataIn;
 assign o_quarter = __quarter;
 assign o_write = __write;
+assign o_writeReg = __writeReg;
 
 //input & write to registers
 always@(negedge clk)
@@ -49,6 +52,7 @@ begin
 	_DataIn <= DataIn;
 	_quarter <= quarter;
 	_write <= write;
+	_writeReg <= writeReg;
 end
 
 //output
@@ -62,6 +66,7 @@ begin
 	__DataIn <= _DataIn;
 	__quarter <= _quarter;
 	__write <= _write;
+	__writeReg <= _writeReg;
 end
 
 endmodule

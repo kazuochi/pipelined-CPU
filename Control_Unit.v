@@ -456,7 +456,6 @@ always @(*)
 			  _start <= 1;
 			  _halted <= 1;
 		 end
-
 	 
 	endcase
 end
