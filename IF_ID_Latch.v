@@ -27,9 +27,9 @@ module IF_ID_Latch
 	output o_WriteMem
  );
  
- reg _write, _move, _immediate, _quarter, _ReadMem, _WriteMem, __write, __move, __immediate, __quarter, __ReadMem, __WriteMem;
+ reg _write, _move, _immediate, _ReadMem, _WriteMem, __write, __move, __immediate, __ReadMem, __WriteMem;
  reg [3:0] _writeReg, _readReg0, _readReg1, _ALU_operation, __writeReg, __readReg0, __readReg1, __ALU_operation;
- reg [1:0] _regToMem, __regToMem;
+ reg [1:0] _regToMem, __regToMem,__quarter,_quarter;
  
  assign o_write 			= 	__write;
  assign o_writeReg 		= 	__writeReg;
@@ -56,6 +56,7 @@ module IF_ID_Latch
 		_readReg0		= readReg0;
 		_readReg1		= readReg1;
 		_ALU_operation	= ALU_operation;
+		_regToMem      = regToMem;
 	end
  end
  
@@ -72,6 +73,8 @@ module IF_ID_Latch
 		__readReg0		= _readReg0;
 		__readReg1		= _readReg1;
 		__ALU_operation= _ALU_operation;
+		__regToMem     = _regToMem;
+		
 	end
  end
 

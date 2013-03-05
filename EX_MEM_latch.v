@@ -41,6 +41,7 @@ begin
 	_quarter <= quarter;
 	_DataIn <= DataIn;
 	_write <= write;
+	_WriteMem = WriteMem;
 
 end
 
@@ -53,6 +54,7 @@ begin
 	__quarter <= _quarter;
 	__DataIn <= _DataIn;
 	__write <= _write;
+	__WriteMem <= _WriteMem;
 
 end
 

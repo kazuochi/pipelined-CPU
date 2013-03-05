@@ -14,7 +14,6 @@ module Fetch_Unit (
 reg [15:0] next_pc = 0;
 reg initialized;
 reg halt = 0;
-reg jumped = 0;
 
 initial 
 begin
@@ -31,6 +30,13 @@ InstructionROM_test rom(
 
 always @(negedge clk)
 begin
+
+if(init && !initialized)
+begin
+	next_pc = 0;
+	initialized = 1;
+end
+
 if(!halt)
 	begin
 	if (start == 1)
@@ -68,11 +74,6 @@ if(!halt)
 	
 end
 
-always@(*)
-if(init && !initialized)
-begin
-	next_pc = 0;
-	initialized = 1;
-end
+
 	
 endmodule

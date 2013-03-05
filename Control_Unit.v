@@ -4,7 +4,6 @@ module Control_Unit(
 	input [8:0] instruction_in,
 	output start,
 	output branch,
-	output taken,
 	output[3:0]readReg0,
 	output[3:0]readReg1,
 	output[3:0]write_reg,
@@ -85,7 +84,9 @@ parameter
 		toBeDefined	= 5'b11011;
 		
 always@(instruction_in)
-dynamic_counter = dynamic_counter + 1;
+begin
+	dynamic_counter = dynamic_counter + 1;
+end
 		
 		
 always @(*)
@@ -448,6 +449,12 @@ always @(*)
 			  r1 <= instruction_in[1:0];
 			  aop = 4'b0111; //ne
 			  _regToMem = 2'bxx;
+		 end
+		 
+		 default: begin 
+				_branch = 0;
+			  _start <= 1;
+			  _halted <= 1;
 		 end
 
 	 

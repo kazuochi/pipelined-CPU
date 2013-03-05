@@ -21,8 +21,8 @@ module ID_EX_latch(
 
 reg [15:0] _readData0, _readData1, _DataIn;
 reg [3:0]  _ALUOp;
-reg [1:0] _ReadMem, _quarter;
-reg _WriteMem, _write;
+reg [1:0]  _quarter;
+reg _WriteMem, _write,_ReadMem;
 
 reg [15:0] __readData0, __readData1, __DataIn;
 reg [3:0]  __ALUOp;
