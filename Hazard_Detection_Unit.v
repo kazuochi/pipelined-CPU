@@ -27,14 +27,42 @@ begin
 	begin
 		_IF_ID_Write <= 0; //don't update IF_ID latch
 		_pc_write = 0;      //don't update pc_counter
-		_stall <= 1;        //stall everything.
+		_stall <= 1;        //stall
 	end
 	
-	else if(regRead0 == ID_EX_regWrite) 
+	else if(regRead1 == ID_EX_regWrite) 
 	begin
 		_IF_ID_Write <= 0; //don't update IF_ID latch
 		_pc_write = 0;      //don't update pc_counter
-		_stall <= 1;        //stall everything.
+		_stall <= 1;        //stall
+	end
+	
+	else if(regRead0 == EX_MEM_regWrite) 
+	begin
+		_IF_ID_Write <= 0; //don't update IF_ID latch
+		_pc_write = 0;      //don't update pc_counter
+		_stall <= 1;        //stall
+	end
+	
+	else if(regRead1 == EX_MEM_regWrite) 
+	begin
+		_IF_ID_Write <= 0; //don't update IF_ID latch
+		_pc_write = 0;      //don't update pc_counter
+		_stall <= 1;        //stall
+	end
+	
+	else if(regRead0 == MEM_WB_regWrite) 
+	begin
+		_IF_ID_Write <= 0; //don't update IF_ID latch
+		_pc_write = 0;      //don't update pc_counter
+		_stall <= 1;        //stall
+	end
+	
+	else if(regRead1 == MEM_WB_regWrite) 
+	begin
+		_IF_ID_Write <= 0; //don't update IF_ID latch
+		_pc_write = 0;      //don't update pc_counter
+		_stall <= 1;        //stall
 	end
 	
 	else
