@@ -74,7 +74,7 @@ module IF_ID_Latch
 		__readReg1		= _readReg1;
 		__ALU_operation= _ALU_operation;
 		__regToMem     = _regToMem;
-		
+
 	end
  end
 

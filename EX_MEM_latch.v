@@ -11,16 +11,19 @@ module EX_MEM_latch(
 	output [1:0] o_quarter,
 	input  [15:0] DataIn,				//Data path to RAM
 	output [15:0] o_DataIn,
-	
 	input write,
-	output o_write
+	output o_write,
+	input [3:0] writeReg,
+	output [3:0] o_writeReg
 );
 
 reg[15:0] _DataAddress, _DataIn;
+reg [3:0] _writeReg;
 reg[1:0]  _quarter;
 reg _ReadMem, _WriteMem, _write;
 
 reg[15:0] __DataAddress, __DataIn;
+reg [3:0] __writeReg;
 reg[1:0]  __quarter;
 reg __ReadMem, __WriteMem, __write;
 
@@ -30,6 +33,7 @@ assign o_WriteMem = __WriteMem;
 assign o_quarter = __quarter;
 assign o_DataIn = __DataIn;
 assign o_write = __write;
+assign o_writeReg = __writeReg;
 
 
 //input & write to registers
@@ -42,7 +46,7 @@ begin
 	_DataIn <= DataIn;
 	_write <= write;
 	_WriteMem = WriteMem;
-
+	_writeReg <= writeReg;
 end
 
 
@@ -55,7 +59,7 @@ begin
 	__DataIn <= _DataIn;
 	__write <= _write;
 	__WriteMem <= _WriteMem;
-
+	__writeReg <= _writeReg;
 end
 
 
