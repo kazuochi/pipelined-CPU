@@ -14,10 +14,6 @@ module Fetch_Unit (
 reg [15:0] next_pc = 0;
 reg initialized;
 reg halt = 0;
-<<<<<<< HEAD
-=======
-reg jumped = 0;
->>>>>>> master
 
 initial 
 begin
