@@ -1,0 +1,223 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2012 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "graphic" (version "1.4"))
+(symbol
+	(rect 360 72 456 168)
+	(text "Clock" (rect 5 0 33 12)(font "Arial" ))
+	(text "inst1" (rect 8 80 31 92)(font "Arial" ))
+	(port
+		(pt 96 32)
+		(output)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 64 27 78 39)(font "Arial" ))
+		(line (pt 96 32)(pt 80 32))
+	)
+	(drawing
+		(rectangle (rect 16 16 80 80))
+	)
+)
+(symbol
+	(rect 520 144 664 400)
+	(text "Pipelined_CPU" (rect 5 0 78 12)(font "Arial" ))
+	(text "inst" (rect 8 240 25 252)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 27 35 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "clk10" (rect 0 0 25 12)(font "Arial" ))
+		(text "clk10" (rect 21 43 46 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "init" (rect 0 0 14 12)(font "Arial" ))
+		(text "init" (rect 21 59 35 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "clk12" (rect 0 0 25 12)(font "Arial" ))
+		(text "clk12" (rect 21 75 46 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "clk13" (rect 0 0 25 12)(font "Arial" ))
+		(text "clk13" (rect 21 91 46 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "stall" (rect 0 0 20 12)(font "Arial" ))
+		(text "stall" (rect 21 107 41 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "clk14" (rect 0 0 25 12)(font "Arial" ))
+		(text "clk14" (rect 21 123 46 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "stall15" (rect 0 0 31 12)(font "Arial" ))
+		(text "stall15" (rect 21 139 52 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "clk16" (rect 0 0 25 12)(font "Arial" ))
+		(text "clk16" (rect 21 155 46 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "clk17" (rect 0 0 25 12)(font "Arial" ))
+		(text "clk17" (rect 21 171 46 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "clk18" (rect 0 0 25 12)(font "Arial" ))
+		(text "clk18" (rect 21 187 46 199)(font "Arial" ))
+		(line (pt 0 192)(pt 16 192))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "clk19" (rect 0 0 25 12)(font "Arial" ))
+		(text "clk19" (rect 21 203 46 215)(font "Arial" ))
+		(line (pt 0 208)(pt 16 208))
+	)
+	(port
+		(pt 144 32)
+		(output)
+		(text "halted" (rect 0 0 29 12)(font "Arial" ))
+		(text "halted" (rect 99 27 123 39)(font "Arial" ))
+		(line (pt 144 32)(pt 128 32))
+	)
+	(drawing
+		(rectangle (rect 16 16 128 240))
+	)
+)
+(connector
+	(pt 480 176)
+	(pt 520 176)
+)
+(connector
+	(pt 520 192)
+	(pt 480 192)
+)
+(connector
+	(pt 520 240)
+	(pt 480 240)
+)
+(connector
+	(pt 520 320)
+	(pt 480 320)
+)
+(connector
+	(pt 480 336)
+	(pt 520 336)
+)
+(connector
+	(pt 480 320)
+	(pt 480 336)
+)
+(connector
+	(pt 520 352)
+	(pt 480 352)
+)
+(connector
+	(pt 480 336)
+	(pt 480 352)
+)
+(connector
+	(pt 480 104)
+	(pt 456 104)
+)
+(connector
+	(pt 480 104)
+	(pt 480 176)
+)
+(connector
+	(pt 480 176)
+	(pt 480 192)
+)
+(connector
+	(pt 664 176)
+	(pt 736 176)
+)
+(connector
+	(pt 520 272)
+	(pt 480 272)
+)
+(connector
+	(pt 520 304)
+	(pt 480 304)
+)
+(connector
+	(pt 480 304)
+	(pt 480 320)
+)
+(connector
+	(pt 480 240)
+	(pt 480 272)
+)
+(connector
+	(pt 520 224)
+	(pt 480 224)
+)
+(connector
+	(pt 480 192)
+	(pt 480 224)
+)
+(connector
+	(pt 480 224)
+	(pt 480 240)
+)
+(connector
+	(pt 480 272)
+	(pt 480 304)
+)
+(junction (pt 480 192))
+(junction (pt 480 240))
+(junction (pt 480 320))
+(junction (pt 480 336))
+(junction (pt 480 176))
+(junction (pt 480 272))
+(junction (pt 480 304))
+(junction (pt 480 224))
