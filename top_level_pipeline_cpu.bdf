@@ -35,6 +35,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
+
 	(rect 520 144 664 400)
 	(text "Pipelined_CPU" (rect 5 0 78 12)(font "Arial" ))
 	(text "inst" (rect 8 240 25 252)(font "Arial" ))
@@ -221,3 +222,4 @@ applicable agreement for further details.
 (junction (pt 480 272))
 (junction (pt 480 304))
 (junction (pt 480 224))
+
