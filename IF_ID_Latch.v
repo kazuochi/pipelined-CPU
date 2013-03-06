@@ -13,7 +13,6 @@ module IF_ID_Latch
 	input [3:0]ALU_operation,
 	input ReadMem,
 	input WriteMem,
-	input stall,
 	output o_write,
 	output [3:0] o_writeReg,
 	output [3:0] o_readReg0,
@@ -44,8 +43,6 @@ module IF_ID_Latch
  assign o_WriteMem		=	__WriteMem;
  
  always @(negedge clk) begin
-	if(!stall)
-	begin
 		_write			= write;
 		_move				= move;
 		_immediate		= immediate;
@@ -57,12 +54,9 @@ module IF_ID_Latch
 		_readReg1		= readReg1;
 		_ALU_operation	= ALU_operation;
 		_regToMem      = regToMem;
-	end
  end
  
  always @(posedge clk) begin
-	if(!stall)
-	begin
 		__write			= _write;
 		__move			= _move;
 		__immediate		= _immediate;
@@ -74,8 +68,6 @@ module IF_ID_Latch
 		__readReg1		= _readReg1;
 		__ALU_operation= _ALU_operation;
 		__regToMem     = _regToMem;
-
-	end
  end
 
 endmodule

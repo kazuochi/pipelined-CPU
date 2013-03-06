@@ -2,7 +2,8 @@
 module Control_Unit(
 	input clk,
 	input [8:0] instruction_in,
-	output start,
+	input stall,
+	output halt_signal,
 	output branch,
 	output[3:0]readReg0,
 	output[3:0]readReg1,
@@ -10,8 +11,8 @@ module Control_Unit(
 	output write,
 	output move,
 	output [3:0] ALUOp,
-	output MemtoReg,
-	output MemWrite,
+	output readMem,
+	output writeMem,
 	output [1:0] regToMem,
 	output jump_sign,
 	output immediate,
@@ -19,7 +20,7 @@ module Control_Unit(
 	output halted
 );
 
-   reg _start;
+   reg _halt_signal;
 	reg _branch;
 	reg[3:0] r0;
 	reg[3:0] r1;
@@ -33,11 +34,11 @@ module Control_Unit(
 	reg imm;
 	reg [1:0] _quarter = 0;
 	reg [1:0] _regToMem;
-	reg _halted;
+	reg _halt_signaled;
 	
 	integer dynamic_counter = -1;
 	
-	assign start = _start;
+	assign halt_signal = _halt_signal;
 	assign branch = _branch;
 	assign readReg0 = r0;
 	assign readReg1 = r1;
@@ -45,13 +46,13 @@ module Control_Unit(
 	assign write = _write;
 	assign move = _move;
 	assign ALUOp = aop;
-	assign MemtoReg = m2r;
-	assign MemWrite = mw;
+	assign readMem = m2r;
+	assign writeMem = mw;
 	assign jump_sign = _jump_sign;
 	assign immediate = imm;
 	assign quarter = _quarter;
 	assign regToMem = _regToMem;
-	assign halted = _halted;
+	assign halted = _halt_signaled;
 	
 parameter	
 		add			= 5'b00000,
@@ -102,7 +103,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			aop = 4'b0000;
 			_move <= 0;
 			imm <= 0;
@@ -118,7 +119,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			aop = 4'b0001;
 			_move <= 0;
 			imm <= 0;
@@ -134,7 +135,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 1;
 			imm <= 0;
 			_regToMem = 2'bxx;
@@ -150,7 +151,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 1;
 			imm <= 0;
 			_regToMem = 2'bxx;
@@ -164,7 +165,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 1;
 			imm <= 0;
 			_regToMem = 2'bxx;
@@ -178,7 +179,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 0;
 			imm <= 1;
 			_jump_sign = instruction_in[0];
@@ -194,10 +195,11 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 0;
 			imm <= 1;
 			_regToMem = 2'bxx;
+			_quarter = 2'bxx;
 			aop = 4'b0000;
 	 end
 		
@@ -209,7 +211,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 1;
 			imm <= 0;
 			_regToMem = 2'bxx;
@@ -223,7 +225,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 1;
 			imm <= 0;
 			_regToMem = 2'bxx;
@@ -238,7 +240,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 1;
 			imm <= 0;
 			_regToMem = 2'bxx;
@@ -253,7 +255,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 1;
 			imm <= 0;
 			_regToMem = 2'bxx;
@@ -269,7 +271,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 1;
 			imm <= 0;
 			_regToMem = 2'bxx;
@@ -284,7 +286,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 1;
 			imm <= 0;
 			_regToMem = 2'bxx;
@@ -298,7 +300,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 1;
 			imm <= 0;
 			_regToMem = 2'bxx;
@@ -312,7 +314,7 @@ always @(*)
 			mw <= 0;
 			m2r <= 0;
 			_branch <= 0;
-			_start <= 0;
+			_halt_signal <= 0;
 			_move <= 0;
 			imm <= 1;
 			_regToMem = 2'bxx;
@@ -320,13 +322,13 @@ always @(*)
 		
 		halt: begin //halt
 			  _branch = 0;
-			  _start <= 1;
-			  _halted <= 1;
+			  _halt_signal <= 1;
+			  _halt_signaled <= 1;
 		 end
 		 
 		zeroReg: begin //zeroReg
 				r0 = 0;
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch = 0;
 			  _write <= 1;
 			  imm <= 1;
@@ -337,7 +339,7 @@ always @(*)
 		 
 		jump: begin //jump
 			  _write = 0;
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch <= 1;
 			  _move = 0;
 			  imm <= 0;
@@ -349,7 +351,7 @@ always @(*)
 		 end
 		 
 		 st: begin //str
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch <= 0;
 			  _write <= 0;
 			  _move = 0;
@@ -362,7 +364,7 @@ always @(*)
 		 end
 		 
 		ld: begin //ld
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch <= 0;
 			  _write <= 1;
 			  _move = 0;
@@ -376,7 +378,7 @@ always @(*)
 		 end
 		 
 		 evl: begin //evl
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch <= 0;
 			  _write <= 1;
 			  r0 <= instruction_in[3:2];
@@ -389,7 +391,7 @@ always @(*)
 		 end
 		 
 		 evu: begin //evu
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch <= 0;
 			  _write <= 1;
 			  r0 <= instruction_in[3:2];
@@ -402,7 +404,7 @@ always @(*)
 		 end
 		 
 		 bgte: begin //bgte
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch <= 1;
 			  _write <= 0;
 			  r0 <= instruction_in[3:2];
@@ -412,7 +414,7 @@ always @(*)
 		 end
 		 
 		 bltz: begin //bltz
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch <= 1;
 			  _write <= 0;
 			  r0 <= instruction_in[3:2];
@@ -422,7 +424,7 @@ always @(*)
 		 end    
 		 
 		 bez: begin //bez
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch <= 1;
 			  _write <= 0;
 			  r0 <= instruction_in[3:2];
@@ -432,7 +434,7 @@ always @(*)
 		 end
 		 
 		 bne: begin //bne
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch <= 1;
 			  _write <= 0;
 			  r0 <= instruction_in[3:2];
@@ -442,7 +444,7 @@ always @(*)
 		 end
 		 
 		 be: begin //be
-			  _start = 0;
+			  _halt_signal = 0;
 			  _branch <= 1;
 			  _write <= 0;
 			  r0 <= instruction_in[3:2];
@@ -453,8 +455,8 @@ always @(*)
 		 
 		 default: begin 
 				_branch = 0;
-			  _start <= 1;
-			  _halted <= 1;
+			  _halt_signal <= 1;
+			  _halt_signaled <= 1;
 		 end
 	 
 	endcase

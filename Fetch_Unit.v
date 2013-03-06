@@ -1,19 +1,18 @@
 `timescale 1ns / 1ps
 module Fetch_Unit (
 				input clk,
+				input init,
+				input halt,
 				input [15:0] pc_in,
-				input start,
-				input branch,
-				input [15:0] target,
-				input taken,
-				input jump_sign,
 				output [15:0] pc_out,
 				output [8:0] fetched_instruction,
-				input init
+				input branch,
+				input taken,
+				input jump_sign,
+				input [15:0] target
 			);
 reg [15:0] next_pc = 0;
 reg initialized;
-reg halt = 0;
 
 initial 
 begin
@@ -28,34 +27,33 @@ InstructionROM_test rom(
 	.instruction(fetched_instruction)
 );
 
-always @(negedge clk)
+always @(*)
 begin
-
-if(init && !initialized)
-begin
-	next_pc = 0;
-	initialized = 1;
-end
-
-if(!halt)
+	if(init && !initialized)
 	begin
-	if (start == 1)
-	begin
-		next_pc <= 0;
-		halt = 1;
+		next_pc = 0;
+		initialized = 1;
 	end
-	
-	else if (branch == 1)
+
+	if(!halt)
 	begin
-		if(taken == 1)
+		if (branch == 1)
 		begin
-			if(jump_sign)
+			if(taken == 1)
 			begin
-				next_pc <= pc_in + target;
+				if(jump_sign)
+				begin
+					next_pc <= pc_in + target;
+				end
+				else
+				begin
+					next_pc <= pc_in - target;
+				end
 			end
+			
 			else
 			begin
-				next_pc <= pc_in - target;
+				next_pc <= pc_in + 1;
 			end
 		end
 		
@@ -64,15 +62,13 @@ if(!halt)
 			next_pc <= pc_in + 1;
 		end
 	end
-	
 	else
 	begin
-		next_pc <= pc_in + 1;
+		next_pc = 0;
 	end
-	
-	end
-	
 end
+
+
 
 
 	

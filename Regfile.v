@@ -12,7 +12,7 @@ module Regfile
  output [15:0] dataToMem,
  input move,
  input immediate,
- output [15:0] address,
+ output [15:0] target,
  input [1:0] quarter,
  input [3:0]ALU_operation,
  output taken
@@ -49,7 +49,7 @@ assign dataToMem =  regToMem == 0 ? reg0 :
 						  regToMem == 2 ? reg2 :
 						  regToMem == 3 ? reg3 : 0;
 						  
-assign address   = adr;
+assign target   = adr;
 assign taken 	  = _taken;
 
 parameter
@@ -59,7 +59,7 @@ parameter
 		eq				= 7,
 		ne				= 8;
 		
-always @(posedge clk) begin
+always @(*) begin
 	_writeData = writeData;
 	_writeReg = writeReg;
 	
