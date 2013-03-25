@@ -4,18 +4,18 @@ module MEM_WB_Latch
 	input clk,
 	input write,
 	input [1:0]quarter,
-	input [3:0] writeReg,
+	input [4:0] writeReg,
 	output o_write,
 	output [1:0]o_quarter,
 	input [15:0] writeData,
 	output [15:0] o_writeData,
-	output [3:0] o_writeReg
+	output [4:0] o_writeReg
  );
  
  reg _write, __write;
  reg [1:0]_quarter, __quarter;
  reg [15:0] _writeData, __writeData;
- reg [3:0] _writeReg, __writeReg;
+ reg [4:0] _writeReg, __writeReg;
  
  assign o_write 			= 	__write;
  assign o_quarter 		= 	__quarter;

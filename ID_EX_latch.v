@@ -17,17 +17,19 @@ module ID_EX_latch(
 	output [1:0] o_quarter,
 	input write,
 	output o_write,
-	input [3:0] writeReg,
-	output [3:0] o_writeReg
+	input [4:0] writeReg,
+	output [4:0] o_writeReg
 );
 
 reg [15:0] _readData0, _readData1, _DataIn;
-reg [3:0]  _ALUOp, _writeReg;
+reg [3:0]  _ALUOp;
+reg [4:0] _writeReg;
 reg [1:0] _ReadMem, _quarter;
 reg _WriteMem, _write;
 
 reg [15:0] __readData0, __readData1, __DataIn;
-reg [3:0]  __ALUOp, __writeReg;
+reg [3:0]  __ALUOp;
+reg [4:0] __writeReg;
 reg [1:0] __quarter;
 reg __WriteMem, __ReadMem, __write;
 

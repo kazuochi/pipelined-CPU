@@ -39,7 +39,13 @@ parameter
 
 always @ (*)
 begin
-    case(pc)
+    case(pc-4) //This is a hack so we don't have to rewrite all the line numbers to get in these extra 5 lines
+		  -4:  begin _instOut={rsAdr,			4'b0000}; end
+		  -3:  begin _instOut={seti,			4'b0000}; end
+		  -2:  begin _instOut={mathToAdr,	4'b0000}; end
+		  -1:  begin _instOut={zeroReg,		4'b0000}; end
+		  0:  begin _instOut={st,				4'b0000}; end
+		  
         1:  begin _instOut={rsCnt,			4'b0000}; end
 		  2:  begin _instOut={seti,			4'b0001}; end
 		  3:  begin _instOut={add,				4'b0000}; end
@@ -171,7 +177,7 @@ begin
 		  127:begin _instOut={mathToAdr,		4'b0000}; end
 		  128:begin _instOut={seti,			4'b0001}; end
 		  129:begin _instOut={mathToAdr,		4'b0100}; end
-		  130:begin _instOut={bgte,			4'b0111}; end
+		  130:begin _instOut={bgte,			4'b1011}; end
 		  131:begin _instOut={mvToCnt,		4'b0000}; end
 		  132:begin _instOut={zeroReg,		4'b0000}; end
 		  133:begin _instOut={mvToAdr,		4'b0000}; end

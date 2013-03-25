@@ -40,11 +40,12 @@ parameter
 always @ (*)
 begin
     case(pc)
+	     0:  begin _instOut={toBeDefined, 4'b0000}; end 
         1:  begin _instOut={seti,        4'b0001}; end //$math = 1
         2:  begin _instOut={mathToAdr,   4'b0000}; end //$adr=0000 0000 0000 0001
         3:  begin _instOut={zeroReg,     4'b0001}; end //$1 = 0
         4:  begin _instOut={ld,          4'b0100}; end //$0 = mem[1]
-		  5:  begin _instOut={rsCnt,       4'b0111}; end //$cnt = 0
+		  5:  begin _instOut={rsCnt,       4'b0000}; end //$cnt = 0
 		  6:  begin _instOut={seti,        4'b0010}; end //$math = 0010 (2nd 1/4) for Inst#8
         7:  begin _instOut={mvMath,      4'b0001}; end //$1 = $math = 2
         8:  begin _instOut={setCnt,      4'b0101}; end //$cnt = 0000 0000 0010 0000 = 32'

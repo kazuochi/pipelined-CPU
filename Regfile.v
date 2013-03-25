@@ -2,7 +2,7 @@
 module Regfile
 (input clk,
  input write,
- input [3:0] writeReg,
+ input [4:0] writeReg,
  input [15:0] writeData,
  input [3:0] readReg0,
  output [15:0] readData0,
@@ -18,7 +18,7 @@ module Regfile
  output taken
  );
  
- reg[15:0] reg0=0, reg1=0, reg2=0, reg3=0, adr=0, math=0, cmp=0, cnt=0, _writeData=0, _writeReg=0, _readData0;
+ reg[15:0] reg0=0, reg1=0, reg2=0, reg3=0, adr=0, math=0, cmp=0, cnt=0, _writeData=0, _writeReg=0;
  reg _taken;
 
  
@@ -115,7 +115,7 @@ always @(*) begin
 				_taken <= 0;
 			end
 		end
-		default: begin end
+		default: begin _taken <= 0; end
 		
 	endcase
 	

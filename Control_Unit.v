@@ -7,7 +7,7 @@ module Control_Unit(
 	output branch,
 	output[3:0]readReg0,
 	output[3:0]readReg1,
-	output[3:0]write_reg,
+	output[4:0]write_reg,
 	output write,
 	output move,
 	output [3:0] ALUOp,
@@ -17,14 +17,15 @@ module Control_Unit(
 	output jump_sign,
 	output immediate,
 	output [1:0] quarter,
-	output halted
+	output halted,
+	output branch_jump
 );
 
    reg _halt_signal;
 	reg _branch;
 	reg[3:0] r0;
 	reg[3:0] r1;
-	reg[3:0] _wr;
+	reg[4:0] _wr;
 	reg _write;
 	reg _move;
 	reg [3:0] aop;
@@ -35,8 +36,15 @@ module Control_Unit(
 	reg [1:0] _quarter = 0;
 	reg [1:0] _regToMem;
 	reg _halt_signaled;
+	reg _branch_jump;
 	
 	integer dynamic_counter = -1;
+	
+	initial
+	begin
+		_halt_signal = 1'b0;
+		_halt_signaled = 1'b0;
+	end
 	
 	assign halt_signal = _halt_signal;
 	assign branch = _branch;
@@ -53,6 +61,7 @@ module Control_Unit(
 	assign quarter = _quarter;
 	assign regToMem = _regToMem;
 	assign halted = _halt_signaled;
+	assign branch_jump = _branch_jump;
 	
 parameter	
 		add			= 5'b00000,
@@ -93,6 +102,16 @@ end
 always @(*)
 	begin
 	_quarter = 2'bxx;	
+	_halt_signal = 0;
+	_halt_signaled = 0;
+	_branch_jump = 0;
+	_wr = 31;
+	aop = 4'b0000;
+	imm = 0;
+	_move = 0;
+	m2r = 0;
+	mw = 0;
+	_write = 0;
 	case(instruction_in[8:4])
 	
 	add: begin  //ADD
@@ -347,6 +366,7 @@ always @(*)
 			  r1 <= 0;
 			  aop = 4'b0111; //eq
 			  _regToMem = 2'bxx;
+			  _branch_jump = 1;
 
 		 end
 		 
@@ -406,6 +426,7 @@ always @(*)
 		 bgte: begin //bgte
 			  _halt_signal = 0;
 			  _branch <= 1;
+			  _branch_jump = 1;
 			  _write <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
@@ -416,6 +437,7 @@ always @(*)
 		 bltz: begin //bltz
 			  _halt_signal = 0;
 			  _branch <= 1;
+			  _branch_jump = 1;
 			  _write <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
@@ -426,6 +448,7 @@ always @(*)
 		 bez: begin //bez
 			  _halt_signal = 0;
 			  _branch <= 1;
+			  _branch_jump = 1;
 			  _write <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
@@ -436,6 +459,7 @@ always @(*)
 		 bne: begin //bne
 			  _halt_signal = 0;
 			  _branch <= 1;
+			  _branch_jump = 1;
 			  _write <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
@@ -446,6 +470,7 @@ always @(*)
 		 be: begin //be
 			  _halt_signal = 0;
 			  _branch <= 1;
+			  _branch_jump = 1;
 			  _write <= 0;
 			  r0 <= instruction_in[3:2];
 			  r1 <= instruction_in[1:0];
@@ -455,8 +480,8 @@ always @(*)
 		 
 		 default: begin 
 				_branch = 0;
-			  _halt_signal <= 1;
-			  _halt_signaled <= 1;
+			  //_halt_signal <= 1;
+			  //_halt_signaled <= 1;
 		 end
 	 
 	endcase

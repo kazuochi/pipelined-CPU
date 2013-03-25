@@ -40,6 +40,7 @@ parameter
 always @ (*)
 begin
     case(pc)
+	     0:  begin _instOut={toBeDefined, 4'b0000}; end
 		  //----- Factorial Begin
         1:  begin _instOut={seti,			4'b0000}; end
         2:  begin _instOut={mathToAdr,		4'b0000}; end
